@@ -23,6 +23,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
 * **QuestionAssociate**(<u>questionGroupId</u>, <u>questionId</u>)
 * **Answer**(<u>id</u>, answerContent)
 * **QuestionAnswer**(<u>questionId</u>, <u>answerId</u>)
+* **UserAnswer**(<u>userId</u>, <u>answerId</u>)
 * **OffensiveWord**(<u>word</u>)
 * **Admin**(<u>id</u>, username, email, password)
 
