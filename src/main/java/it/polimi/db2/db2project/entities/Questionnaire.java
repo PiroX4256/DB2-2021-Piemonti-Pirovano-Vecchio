@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@NamedQueries({@NamedQuery(name = "Questionnaire.findQuestionnaireOfTheDay", query = "SELECT q FROM Questionnaire q WHERE q.date = ?1")})
+@NamedQueries({@NamedQuery(name = "Questionnaire.findQuestionnaireByDate", query = "SELECT q FROM Questionnaire q WHERE q.date = ?1"),
+        @NamedQuery(name = "Questionnaire.findAll", query = "SELECT q FROM Questionnaire q")})
 public class Questionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -45,5 +46,17 @@ public class Questionnaire {
 
     public Date getDate() {
         return date;
+    }
+
+    public List<User> getQuestionnaireCompiledBy() {
+        return questionnaireCompiledBy;
+    }
+
+    public List<QuestionGroup> getQuestionGroups() {
+        return questionGroups;
+    }
+
+    public void addQuestionGroup(QuestionGroup questionGroup) {
+        getQuestionGroups().add(questionGroup);
     }
 }

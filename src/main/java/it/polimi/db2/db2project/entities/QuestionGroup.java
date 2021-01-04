@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "QuestionGroup.findQuestions", query = "SELECT q FROM Question q JOIN QuestionAssociate qa ON q.id = qa.questionId WHERE qa.questionGroupId = ?1")})
 public class QuestionGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,5 +39,9 @@ public class QuestionGroup {
 
     public List<Question> getQuestionList() {
         return questionList;
+    }
+
+    public void addQuestionnaire(Questionnaire questionnaire) {
+        getQuestionnaireList().add(questionnaire);
     }
 }
