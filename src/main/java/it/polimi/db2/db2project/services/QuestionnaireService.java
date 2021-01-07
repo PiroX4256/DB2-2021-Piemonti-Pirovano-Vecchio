@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class QuestionnaireService {
-    @PersistenceContext(unitName = "QuestionnaireEJB")
+    @PersistenceContext
     private EntityManager em;
 
     public Long createQuestionnaire(String productName, String productImage, Date date) {

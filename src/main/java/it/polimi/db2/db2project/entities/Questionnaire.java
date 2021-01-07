@@ -17,7 +17,7 @@ public class Questionnaire {
     private String productImage;
     private Date date;
 
-    @ManyToMany(mappedBy = "questionnaireList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "questionnaireList")
     private List<User> questionnaireCompiledBy = new ArrayList<>();
 
     @ManyToMany

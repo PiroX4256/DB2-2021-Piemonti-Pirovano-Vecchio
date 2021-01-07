@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NamedQueries({@NamedQuery(name = "QuestionGroup.findQuestions", query = "SELECT q FROM Question q JOIN QuestionAssociate qa ON q.id = qa.questionId WHERE qa.questionGroupId = ?1")})
+//@NamedQueries({@NamedQuery(name = "QuestionGroup.findQuestions", query = "SELECT q FROM Question q JOIN QuestionAssociate qa ON q.id = qa.questionId WHERE qa.questionGroupId = ?1")})
 public class QuestionGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "questionGroups", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "questionGroups")
     private List<Questionnaire> questionnaireList = new ArrayList<>();
 
     @ManyToMany

@@ -11,10 +11,10 @@ public class Question {
     private Long id;
     private String questionContent;
 
-    @ManyToMany(mappedBy = "questionList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "questionList")
     private List<QuestionGroup> questionGroupList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Answer> answersForThisQuestion;
 
     protected Question() {}

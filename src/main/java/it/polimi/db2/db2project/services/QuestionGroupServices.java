@@ -11,7 +11,7 @@ import java.util.List;
 
 @Stateless
 public class QuestionGroupServices {
-    @PersistenceContext(unitName = "QuestionnaireEJB")
+    @PersistenceContext
     private EntityManager em;
 
     public void createQuestionGroup(String name, Long questionnaireId) {
