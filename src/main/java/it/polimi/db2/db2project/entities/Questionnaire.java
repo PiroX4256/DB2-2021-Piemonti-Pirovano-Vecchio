@@ -15,6 +15,8 @@ public class Questionnaire {
 
     private String productName;
     private String productImage;
+    @Temporal(TemporalType.DATE)
+    @Column
     private Date date;
 
     @ManyToMany(mappedBy = "questionnaireList")
