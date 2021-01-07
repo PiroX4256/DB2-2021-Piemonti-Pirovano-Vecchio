@@ -16,7 +16,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
 
 * **User**(<u>id</u>, username, email, password, lastLogin, active, score)
 * **Questionnaire**(<u>id</u>, productName, productImage, date)
-* **UserFilled**(<u>userId, questionnaireId</u>)
+* **UserFilled**(<u>userId, questionnaireId</u>, status)
 * **QuestionGroup**(<u>id</u>, name)
 * **QuestionnaireQuestionGroup**(<u>questionnaireId</u>, <u>questionGroupId</u>)
 * **Question**(<u>id</u>, questionContent)
