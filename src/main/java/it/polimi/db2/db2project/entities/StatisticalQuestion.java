@@ -13,6 +13,10 @@ public class StatisticalQuestion {
     @OneToMany(mappedBy = "statisticalQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<StatisticalAnswer> statisticalAnswers;
 
+    @ManyToOne
+    @JoinColumn
+    private Questionnaire questionnaire;
+
     protected StatisticalQuestion() {}
 
     public StatisticalQuestion(String questionContent) {
@@ -37,5 +41,25 @@ public class StatisticalQuestion {
 
     public void setMarketingAnswer(List<StatisticalAnswer> statisticalAnswers) {
         this.statisticalAnswers = statisticalAnswers;
+    }
+
+    public List<StatisticalAnswer> getStatisticalAnswers() {
+        return statisticalAnswers;
+    }
+
+    public void setStatisticalAnswers(List<StatisticalAnswer> statisticalAnswers) {
+        this.statisticalAnswers = statisticalAnswers;
+    }
+
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
+    }
+
+    public void setQuestionnaire(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
+    }
+
+    public void addStatisticalAnswer(StatisticalAnswer statisticalAnswer) {
+        this.statisticalAnswers.add(statisticalAnswer);
     }
 }

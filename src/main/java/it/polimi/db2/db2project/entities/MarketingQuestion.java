@@ -13,10 +13,15 @@ public class MarketingQuestion {
     @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MarketingAnswer> marketingAnswer;
 
+    @ManyToOne
+    @JoinColumn
+    private Questionnaire questionnaire;
+
     protected MarketingQuestion() {}
 
-    public MarketingQuestion(String questionContent) {
+    public MarketingQuestion(String questionContent, Questionnaire questionnaire) {
         this.questionContent = questionContent;
+        this.questionnaire = questionnaire;
     }
 
     public Long getId() {
@@ -37,5 +42,9 @@ public class MarketingQuestion {
 
     public void setMarketingAnswer(List<MarketingAnswer> marketingAnswer) {
         this.marketingAnswer = marketingAnswer;
+    }
+
+    public void addMarketingAnswer(MarketingAnswer marketingAnswer) {
+        this.marketingAnswer.add(marketingAnswer);
     }
 }
