@@ -7,7 +7,8 @@ import java.util.List;
 
 @Entity
 @NamedQueries({@NamedQuery(name = "Questionnaire.findQuestionnaireByDate", query = "SELECT q FROM Questionnaire q WHERE q.date = ?1"),
-        @NamedQuery(name = "Questionnaire.findAll", query = "SELECT q FROM Questionnaire q")})
+        @NamedQuery(name = "Questionnaire.findAll", query = "SELECT q FROM Questionnaire q"),
+        @NamedQuery(name = "Questionnaire.findQuestionnaireById", query = "SELECT q FROM Questionnaire q WHERE q.id = ?1")})
 public class Questionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
