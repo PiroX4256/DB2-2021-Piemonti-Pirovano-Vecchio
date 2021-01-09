@@ -1,7 +1,6 @@
 package it.polimi.db2.db2project.services;
 
-import it.polimi.db2.db2project.entities.Question;
-import it.polimi.db2.db2project.entities.QuestionGroup;
+import it.polimi.db2.db2project.entities.MarketingQuestion;
 import it.polimi.db2.db2project.entities.Questionnaire;
 
 import javax.ejb.Stateless;
@@ -22,7 +21,7 @@ public class QuestionGroupServices {
         em.persist(questionGroup);
     }
 
-    public List<Question> getQuestionsByQuestionGroup(Long questionGroupId) {
-        return em.createNamedQuery("QuestionGroup.findQuestions", Question.class).setParameter(1, questionGroupId).getResultList();
+    public List<MarketingQuestion> getQuestionsByQuestionGroup(Long questionGroupId) {
+        return em.createNamedQuery("QuestionGroup.findQuestions", MarketingQuestion.class).setParameter(1, questionGroupId).getResultList();
     }
 }
