@@ -3,7 +3,7 @@ package it.polimi.db2.db2project.entities;
 import javax.persistence.*;
 
 @Entity
-@NamedQueries({@NamedQuery(name = "Admin.findByUsername", query = "SELECT u FROM User u WHERE u.username = ?1")})
+@NamedQueries({@NamedQuery(name = "Admin.findByUsername", query = "SELECT u FROM Admin u WHERE u.username = ?1")})
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
