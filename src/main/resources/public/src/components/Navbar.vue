@@ -7,6 +7,9 @@
       <li v-if="!getBearer && !getAdminBearer" class="nav-item">
         <router-link class="btn btn-outline-primary" to="/register">Sign up</router-link>
       </li>
+      <li v-if="!getBearer && !getAdminBearer" class="nav-item" style="padding-left: 5px">
+        <router-link class="btn btn-outline-danger"  to="/admin">Admin</router-link>
+      </li>
       <li v-if="getBearer || getAdminBearer" class="nav-item">
         <button class="btn btn-primary" @click="logout">Logout</button>
       </li>

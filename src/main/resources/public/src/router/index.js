@@ -5,6 +5,9 @@ import Home from "../views/Home";
 import Register from "../components/Register";
 import AdminLogin from "../components/AdminLogin";
 import AdminHomePage from "../components/AdminHomePage";
+import AdminFormCreation from "../components/AdminFormCreation";
+import AdminInspectQuestionnaire from "../components/AdminInspectQuestionnaire";
+import AdminDeleteQuestionnaire from "../components/AdminDeleteQuestionnaire";
 
 Vue.use(VueRouter);
 
@@ -14,6 +17,10 @@ const routes = [
     { path: '/register', name: 'Register', component: Register },
     { path: '/admin', name: 'Admin', component: AdminLogin },
     { path: '/adminHomePage', name: 'AdminHomePage', component: AdminHomePage },
+    { path: '/adminCreateQuestionnaire', name: 'AdminCreateQuestionnaire', component: AdminFormCreation },
+    { path: '/adminInspectQuestionnaire', name: 'AdminInspectQuestionnaire', component: AdminInspectQuestionnaire },
+    { path: '/adminDeleteQuestionnaire', name: 'AdminDeleteQuestionnaire', component: AdminDeleteQuestionnaire },
+
 ]
 
 const router = new VueRouter({

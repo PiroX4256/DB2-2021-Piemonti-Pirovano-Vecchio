@@ -14,7 +14,7 @@
       </div>
 
       <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
-      <div class="alert alert-danger" role="alert" v-if="errmsg"> {{ errmsg }}</div>
+      <div class="alert alert-danger" role="alert" v-if="errmsg" style="padding-top: 5px"> {{ errmsg }} </div>
     </form>
   </div>
 </template>
@@ -47,13 +47,13 @@ export default {
           username: this.username,
           password: this.password
         }).then((res) => {
-          if(res.status === 200) {
+          if(res.status === 200 && res.data) {
             this.setAdminBearer(res.data);
           } else {
             this.errmsg = 'Wrong user/password combination.'
           }
         }).catch((res) => {
-          console.log(`ERROR: ${res}`);
+          this.errmsg = `Error: ${res.status}`
         });
       }
     }

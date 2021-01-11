@@ -1,6 +1,10 @@
 <template>
-<div class="home">
-  Home page lol
+<div class="vue-tempalte">
+  <div class="home-content" v-if="productName && productImage && date">
+    <h4>{{ date }}</h4>
+    <h3>Questionnaire of the day: {{ productName }}</h3>
+    <img class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`" width="100%">
+  </div>
   {{ errorMsg }}
 </div>
 </template>
@@ -14,7 +18,10 @@ export default {
   name: "Home",
   data() {
     return {
-      errorMsg: ''
+      errorMsg: '',
+      productName: '',
+      productImage: '',
+      date: ''
     }
   },
   computed: {
@@ -34,21 +41,28 @@ export default {
       router.push("/login");
     } else if(this.getAdminBearer) {
       router.push("/adminHomePage");
-    }
+    } else
     //alert(`${this.getBearer}`);
-    axios.get("http://localhost:8081/home/getHomePage", {headers: {
-        'Authorization': `Bearer ${this.getBearer}`
-    }}).then((res) => {
-      console.log(`status: ${res}`);
-    }).catch((res) => {
-      if(res.status === 403) {
-        console.log(`ERROR: ${res}`);
-        console.log(`CLEARING STORAGE...`);
-        this.clearBearer();
-      } else {
-        this.errorMsg = `ERROR ${res.status}`;
-      }
-    })
+    {
+      axios.get("http://localhost:8081/home/getHomePage", {
+        headers: {
+          'Authorization': `Bearer ${this.getBearer}`
+        }
+      }).then((res) => {
+        this.productName = res.data.productName;
+        this.productImage = res.data.productImage;
+        this.date = res.data.date;
+        console.log(`status: ${res}`);
+      }).catch((res) => {
+        if (res.status === 403) {
+          console.log(`ERROR: ${res}`);
+          console.log(`CLEARING STORAGE...`);
+          this.clearBearer();
+        } else {
+          this.errorMsg = `ERROR ${res.status}`;
+        }
+      });
+    }
   }
 }
 </script>
