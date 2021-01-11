@@ -1,17 +1,19 @@
 package it.polimi.db2.db2project.controllers;
 
+import it.polimi.db2.db2project.entities.MarketingAnswer;
+import it.polimi.db2.db2project.entities.MarketingQuestion;
 import it.polimi.db2.db2project.entities.Questionnaire;
+import it.polimi.db2.db2project.model.ReviewsDTO;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.annotation.Retention;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/home")
@@ -20,8 +22,28 @@ public class HomePageController {
     QuestionnaireService questionnaireService;
 
     @GetMapping("/getHomePage")
-    public ResponseEntity<?> index() {
+    public ResponseEntity<?> getQuestionnaireByDate() {
         Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+        if(questionnaire == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(questionnaire);
+    }
+
+    @GetMapping("/getReviews")
+    public ResponseEntity<?> getReviews() {
+        List<MarketingQuestion> questionList = questionnaireService.findByDate(new Date()).getMarketingQuestions();
+        List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
+        for(MarketingQuestion question : questionList) {
+            List<MarketingAnswer> answers = question.getMarketingAnswer();
+            if(answers != null) {
+                ReviewsDTO reviewsDTO = new ReviewsDTO(question, answers);
+                reviewsDTOList.add(reviewsDTO);
+            }
+        }
+        if(reviewsDTOList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(reviewsDTOList);
     }
 }
