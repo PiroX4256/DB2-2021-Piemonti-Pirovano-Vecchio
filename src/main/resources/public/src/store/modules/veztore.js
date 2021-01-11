@@ -5,12 +5,16 @@ import router from "../../router";
 export default {
     namespaced: true,
     state: {
-        bearer: null
+        bearer: null,
+        adminBearer: null
     },
 
     getters: {
         getBearer(state) {
             return state.bearer;
+        },
+        getAdminBearer(state) {
+            return state.adminBearer;
         }
     },
 
@@ -21,6 +25,13 @@ export default {
         },
         clearBearer({ commit }) {
             commit('clearBearer');
+        },
+        setAdminBearer({ commit }, bearer) {
+            commit('setAdminBearer', bearer);
+            router.push('/adminHomePage');
+        },
+        clearAdminBearer({ commit }) {
+            commit('clearAdminBearer');
         }
     },
 
@@ -30,6 +41,12 @@ export default {
         },
         clearBearer(state) {
             state.bearer = null;
+        },
+        setAdminBearer(state, bearer) {
+            state.adminBearer = bearer;
+        },
+        clearAdminBearer(state) {
+            state.adminBearer = null;
         }
     }
 }

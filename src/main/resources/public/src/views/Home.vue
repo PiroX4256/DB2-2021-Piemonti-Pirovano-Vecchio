@@ -20,6 +20,7 @@ export default {
   computed: {
     ...mapGetters('veztore', [
       'getBearer',
+      'getAdminBearer',
     ])
   },
   methods: {
@@ -29,10 +30,12 @@ export default {
     ]),
   },
   async created() {
-    if(!this.getBearer) {
+    if(!this.getBearer && !this.getAdminBearer) {
       router.push("/login");
+    } else if(this.getAdminBearer) {
+      router.push("/adminHomePage");
     }
-    alert(`${this.getBearer}`);
+    //alert(`${this.getBearer}`);
     axios.get("http://localhost:8081/home/getHomePage", {headers: {
         'Authorization': `Bearer ${this.getBearer}`
     }}).then((res) => {
