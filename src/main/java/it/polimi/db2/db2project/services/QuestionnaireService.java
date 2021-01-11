@@ -34,10 +34,11 @@ public class QuestionnaireService {
     }
 
     public Questionnaire findByDate(Date date) {
-        return em.createNamedQuery("Questionnaire.findQuestionnaireByDate", Questionnaire.class).setParameter(1, date, TemporalType.DATE).getSingleResult();
+        return em.createNamedQuery("Questionnaire.findQuestionnaireByDate", Questionnaire.class).setParameter(1, date).getSingleResult();
     }
 
     public Questionnaire findById(Long id) {
         return em.createNamedQuery("Questionnaire.findQuestionnaireById", Questionnaire.class).setParameter(1, id).getSingleResult();
     }
+
 }

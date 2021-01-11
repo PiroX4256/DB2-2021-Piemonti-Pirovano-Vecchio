@@ -1,9 +1,12 @@
 package it.polimi.db2.db2project.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "MarketingQuestion.findAll", query = "SELECT q FROM MarketingQuestion q ")})
 public class MarketingQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -11,6 +14,7 @@ public class MarketingQuestion {
     private String questionContent;
 
     @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
     private List<MarketingAnswer> marketingAnswer;
 
     @ManyToOne

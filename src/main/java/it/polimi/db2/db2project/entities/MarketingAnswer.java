@@ -1,5 +1,6 @@
 package it.polimi.db2.db2project.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class MarketingAnswer {
     private User user;
     @NotNull
     @ManyToOne
+    @JsonBackReference
     private MarketingQuestion marketingQuestion;
     @NotNull
     private String answer;
@@ -22,6 +24,10 @@ public class MarketingAnswer {
         this.user = user;
         this.marketingQuestion = marketingQuestion;
         this.answer = answer;
+    }
+
+    public MarketingAnswer() {
+
     }
 
     public Long getId() {

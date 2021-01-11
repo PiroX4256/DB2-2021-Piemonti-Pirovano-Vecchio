@@ -9,7 +9,7 @@ public class Answer {
     private Long id;
     private String answerContent;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "answerUser", referencedColumnName = "id")
     private User user;
 
