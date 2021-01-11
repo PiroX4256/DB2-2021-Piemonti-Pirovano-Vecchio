@@ -1,8 +1,6 @@
 package it.polimi.db2.db2project.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Answer {
@@ -17,7 +15,7 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name="question")
-    private Question question;
+    private MarketingQuestion marketingQuestion;
 
     public Answer() {}
 
