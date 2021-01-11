@@ -1,29 +1,50 @@
 <template>
 <div class="home">
   Home page lol
+  {{ errorMsg }}
 </div>
 </template>
 
 <script>
 import router from "../router";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      errorMsg: ''
+    }
+  },
   computed: {
     ...mapGetters('veztore', [
       'getBearer',
     ])
   },
+  methods: {
+    ...mapActions('veztore', [
+      'setBearer',
+      'clearBearer',
+    ]),
+  },
   async created() {
     if(!this.getBearer) {
       router.push("/login");
     }
-    axios.get("http://localhost:8081/home", {headers: {
-      'Access-Control-Allow-Origin': '*'
-    }}).then(res => {
+    alert(`${this.getBearer}`);
+    axios.get("http://localhost:8081/home/getHomePage", {headers: {
+        'Authorization': `Bearer ${this.getBearer}`
+    }}).then((res) => {
       console.log(`status: ${res}`);
+    }).catch((res) => {
+      if(res.status === 403) {
+        console.log(`ERROR: ${res}`);
+        console.log(`CLEARING STORAGE...`);
+        this.clearBearer();
+      } else {
+        this.errorMsg = `ERROR ${res.status}`;
+      }
     })
   }
 }

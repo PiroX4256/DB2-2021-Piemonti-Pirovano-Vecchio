@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
-import veztore from "@/store/modules/veztore"
+import veztore from "../store/modules/veztore"
 
 Vue.use(Vuex);
 

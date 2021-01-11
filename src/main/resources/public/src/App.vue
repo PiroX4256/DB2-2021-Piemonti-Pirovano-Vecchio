@@ -3,17 +3,10 @@
     <!-- Navigation -->
     <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">
-        <a class="navbar-brand float-left" target="_blank">
+        <router-link to="/" class="navbar-brand float-left">
           Gamified quiz!
-        </a>
-        <ul class="nav navbar-nav flex-row float-right">
-          <li class="nav-item">
-            <router-link class="nav-link pr-3" to="/login">Sign in</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="btn btn-outline-primary" to="/">Sign up</router-link>
-          </li>
-        </ul>
+        </router-link>
+        <Navbar></Navbar>
       </div>
     </nav>
 
@@ -30,10 +23,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Navbar from "./components/Navbar";
 
 export default {
   name: 'App',
   components: {
+    Navbar
   },
   computed: {
     ...mapGetters('veztore', [

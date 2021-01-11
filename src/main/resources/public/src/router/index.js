@@ -7,9 +7,9 @@ import Register from "../components/Register";
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/login', component: Login },
-    { path: '/', component: Home },
-    { path: '/register', component: Register },
+    { path: '/login', name: 'Login', component: Login },
+    { path: '/', name: 'Home', component: Home },
+    { path: '/register', name: 'Register', component: Register },
 ]
 
 const router = new VueRouter({
