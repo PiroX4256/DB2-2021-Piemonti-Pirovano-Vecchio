@@ -7,15 +7,15 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ReviewsDTO {
-    private final MarketingQuestion marketingQuestion;
+    private final String marketingQuestion;
     private final List<MarketingAnswer> marketingAnswerList;
 
-    public ReviewsDTO(MarketingQuestion marketingQuestion, List<MarketingAnswer> answerList) {
-        this.marketingQuestion = marketingQuestion;
-        this.marketingAnswerList = answerList;
+    public ReviewsDTO(MarketingQuestion marketingQuestion) {
+        this.marketingQuestion = marketingQuestion.getQuestionContent();
+        this.marketingAnswerList = marketingQuestion.getMarketingAnswer();
     }
 
-    public MarketingQuestion getMarketingQuestion() {
+    public String getMarketingQuestion() {
         return marketingQuestion;
     }
 
