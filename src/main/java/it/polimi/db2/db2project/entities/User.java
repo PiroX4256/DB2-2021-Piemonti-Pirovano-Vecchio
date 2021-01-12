@@ -20,9 +20,8 @@ public class User {
     private boolean active;
     private int score;
 
-    @ManyToMany
-    @JoinTable(name = "UserFilled", schema = "db2", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "questionnaireId"))
-    private List<Questionnaire> questionnaireList = new ArrayList<>();
+    @ManyToMany(mappedBy = "users")
+    private List<UserFilled> userFilled = new ArrayList<>();
 
     public User() {}
 
@@ -86,8 +85,8 @@ public class User {
         this.score = score;
     }
 
-    public void setQuestionnaireList(List<Questionnaire> questionnaireList) {
-        this.questionnaireList = questionnaireList;
+    public void setQuestionnaireList(List<UserFilled> userFilled) {
+        this.userFilled = userFilled;
     }
 
     public void setId(long userId) {

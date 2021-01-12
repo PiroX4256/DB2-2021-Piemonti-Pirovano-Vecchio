@@ -1,18 +1,13 @@
 package it.polimi.db2.db2project.services;
 
 import it.polimi.db2.db2project.entities.*;
-import it.polimi.db2.db2project.model.AnswersDTO;
-import it.polimi.db2.db2project.model.QuestionnaireDTO;
-import org.hibernate.type.CalendarTimeType;
+import it.polimi.db2.db2project.model.ProductDTO;
 import org.springframework.stereotype.Service;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +18,8 @@ public class QuestionnaireService {
     private EntityManager em;
 
     @Transactional
-    public Questionnaire createQuestionnaire(QuestionnaireDTO questionnaireDTO) {
-        Questionnaire q = new Questionnaire(questionnaireDTO.getProductName(), questionnaireDTO.getProductImage(), questionnaireDTO.getDate());
+    public Questionnaire createQuestionnaire(ProductDTO productDTO) {
+        Questionnaire q = new Questionnaire(productDTO.getProductName(), productDTO.getProductImage(), productDTO.getDate());
         em.persist(q);
         em.flush();
         return q;

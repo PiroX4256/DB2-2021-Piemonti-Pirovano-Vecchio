@@ -1,27 +1,22 @@
 package it.polimi.db2.db2project.model;
 
-import java.util.Date;
+import java.util.List;
 
 public class QuestionnaireDTO {
-    private final String productName;
-    private final String productImage;
-    private final Date date;
 
-    public QuestionnaireDTO(String productName, String productImage, Date date) {
-        this.productName = productName;
-        this.productImage = productImage;
-        this.date = date;
+    private final ProductDTO productDTO;
+    private final List<String> marketingQuestions;
+
+    public QuestionnaireDTO(ProductDTO productDTO, List<String> marketingQuestions) {
+        this.productDTO = productDTO;
+        this.marketingQuestions = marketingQuestions;
     }
 
-    public String getProductName() {
-        return productName;
+    public ProductDTO getProductDTO() {
+        return productDTO;
     }
 
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public Date getDate() {
-        return date;
+    public List<String> getMarketingQuestions() {
+        return marketingQuestions;
     }
 }
