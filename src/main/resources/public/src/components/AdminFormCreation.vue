@@ -74,9 +74,12 @@ export default {
     },
     submitForm() {
       axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/new`, {
-        productName: this.productName,
-        productImage: this.productImage,
-        date: this.date
+        productDTO: {
+          productName: this.productName,
+          productImage: this.productImage,
+          date: this.date
+        },
+        marketingQuestions: this.questions,
       }, {
         headers: {
           'Authorization': `Bearer ${this.getAdminBearer}`
