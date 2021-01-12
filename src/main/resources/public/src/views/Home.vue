@@ -2,8 +2,11 @@
 <div class="vue-tempalte">
   <div class="home-content" v-if="productName && productImage && date">
     <h4>{{ date }}</h4>
-    <h3>Questionnaire of the day: {{ productName }}</h3>
-    <img class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`" width="100%">
+    <h3>Questionnaire of the day:</h3>
+    <h3><u>{{ productName }}</u></h3>
+    <div class="input-group input-group-lg">
+      <img class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`">
+    </div>
   </div>
   {{ errorMsg }}
 </div>
@@ -49,13 +52,13 @@ export default {
           'Authorization': `Bearer ${this.getBearer}`
         }
       }).then((res) => {
-        this.productName = res.data.productName;
-        this.productImage = res.data.productImage;
-        this.date = res.data.date;
-        console.log(`status: ${res}`);
+        this.productName = res.data.questionnaire.productName;
+        this.productImage = res.data.questionnaire.productImage;
+        this.date = res.data.questionnaire.date;
+        console.log(`response: ${JSON.stringify(res)}`);
       }).catch((res) => {
         if (res.status === 403) {
-          console.log(`ERROR: ${res}`);
+          console.log(`ERROR: ${res.status}`);
           console.log(`CLEARING STORAGE...`);
           this.clearBearer();
         } else {
