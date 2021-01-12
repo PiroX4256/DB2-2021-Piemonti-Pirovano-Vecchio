@@ -20,7 +20,7 @@ public class Questionnaire {
     @Column
     private Date date;
 
-    @ManyToMany(mappedBy = "questionnaires")
+    @OneToMany(mappedBy = "questionnaire")
     private List<UserFilled> questionnaireCompiledBy = new ArrayList<>();
 
     @OneToMany(mappedBy = "questionnaire")

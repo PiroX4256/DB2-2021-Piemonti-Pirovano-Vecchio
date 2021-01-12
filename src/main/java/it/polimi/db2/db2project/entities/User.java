@@ -20,7 +20,7 @@ public class User {
     private boolean active;
     private int score;
 
-    @ManyToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<UserFilled> userFilled = new ArrayList<>();
 
     public User() {}
