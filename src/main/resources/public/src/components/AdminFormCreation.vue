@@ -1,6 +1,12 @@
 <template>
 <div class="vue-tempalte">
-  <!-- Insert name and image url -->
+  <!-- Insert date, name and image url -->
+  <div class="form-group row">
+    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+    <div class="col-10">
+      <input v-model="date" class="form-control" type="date" value="2021-01-01" id="example-date-input">
+    </div>
+  </div>
   <div class="input-group input-group-lg">
     <div class="input-group-prepend">
       <span class="input-group-text" id="productName">Product Name</span>
@@ -13,9 +19,9 @@
     </div>
     <input v-model="productImage" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
   </div>
-
-  <img v-if="productName && productImage" class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`" width="100%">
-
+  <div class="input-group input-group-lg">
+    <img v-if="productName && productImage" class="img-responsive" :src="`${productImage}`" :alt="`${productName}`">
+  </div>
   <!-- Questions -->
   <div v-for="question in questions" v-bind:key="question" class="input-group input-group-lg">
     <div class="input-group-prepend">
@@ -32,23 +38,32 @@
     <input v-model="newQuestion" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
     <button class="btn btn-outline-secondary" type="button" @click="appendQuestion">New</button>
   </div>
-
-  <button type="button" class="btn btn-success btn-lg btn-block pad5">Submit</button>
-
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-success btn-lg btn-block" @click="submitForm">Submit</button>
+  </div>
 </div>
 </template>
 
 <script>
-// TODO: submit form
+import axios from "axios";
+import {mapGetters} from "vuex";
+
 export default {
   name: "AdminFormCreation",
   data() {
     return {
+      today: new Date(),
+      date: '',
       productName: '',
       productImage: '',
       questions: [],
       newQuestion: '',
     }
+  },
+  computed: {
+    ...mapGetters('veztore', [
+      'getAdminBearer',
+    ])
   },
   methods: {
     appendQuestion() {
@@ -56,6 +71,23 @@ export default {
         this.questions.push(this.newQuestion);
         this.newQuestion = '';
       }
+    },
+    submitForm() {
+      axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/new`, {
+        productName: this.productName,
+        productImage: this.productImage,
+        date: this.date
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.getAdminBearer}`
+        }
+      }
+    ).then(res => {
+        console.log(`${res.status}:: ${res.data}`);
+      })
+      .catch(res => {
+        console.log(`ERROR: ${res.status}:: ${res.data}`);
+      })
     }
   }
 }
@@ -63,9 +95,6 @@ export default {
 
 <style scoped>
 .input-group {
-  padding-top: 5px;
-}
-.img-responsive {
   padding-top: 5px;
 }
 .pad5 {
