@@ -6,7 +6,7 @@ import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.entities.StatisticalQuestion;
 import it.polimi.db2.db2project.model.HomePageDTO;
 import it.polimi.db2.db2project.model.MarketingQuestionDTO;
-import it.polimi.db2.db2project.model.QuestionnaireDTO;
+import it.polimi.db2.db2project.model.ProductDTO;
 import it.polimi.db2.db2project.model.ReviewsDTO;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import it.polimi.db2.db2project.services.StatisticalQuestionService;
@@ -35,7 +35,7 @@ public class HomePageController {
         if(questionnaire == null) {
             return ResponseEntity.notFound().build();
         }
-        QuestionnaireDTO questionnaireDTO = new QuestionnaireDTO(questionnaire.getProductName(), questionnaire.getProductImage(), questionnaire.getDate());
+        ProductDTO productDTO = new ProductDTO(questionnaire.getProductName(), questionnaire.getProductImage(), questionnaire.getDate());
         List<MarketingQuestion> marketingQuestionList = questionnaire.getMarketingQuestions();
         List<MarketingQuestionDTO> marketingQuestionDTOList = new ArrayList<>();
         for(MarketingQuestion question : marketingQuestionList) {
@@ -47,7 +47,7 @@ public class HomePageController {
         for(StatisticalQuestion question : statisticalQuestionList) {
             statisticalQuestions.add(question.getQuestionContent());
         }
-        HomePageDTO homePage = new HomePageDTO(questionnaireDTO, marketingQuestionDTOList, statisticalQuestions);
+        HomePageDTO homePage = new HomePageDTO(productDTO, marketingQuestionDTOList, statisticalQuestions);
         return ResponseEntity.ok(homePage);
     }
 

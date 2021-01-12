@@ -3,7 +3,7 @@ package it.polimi.db2.db2project.controllers;
 import it.polimi.db2.db2project.entities.*;
 import it.polimi.db2.db2project.model.Answer;
 import it.polimi.db2.db2project.model.AnswersDTO;
-import it.polimi.db2.db2project.model.QuestionnaireDTO;
+import it.polimi.db2.db2project.model.ProductDTO;
 import it.polimi.db2.db2project.services.MarketingQuestionService;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import it.polimi.db2.db2project.services.StatisticalQuestionService;
@@ -34,8 +34,8 @@ public class QuestionnaireController {
     private UserService userService;
 
     @PostMapping("/new")
-    public ResponseEntity<?> createQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
-        return ResponseEntity.ok(questionnaireService.createQuestionnaire(questionnaireDTO));
+    public ResponseEntity<?> createQuestionnaire(@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(questionnaireService.createQuestionnaire(productDTO));
     }
 
     @GetMapping("/getQuestionnaireFromId")
