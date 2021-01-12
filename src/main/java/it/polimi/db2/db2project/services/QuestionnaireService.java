@@ -26,6 +26,14 @@ public class QuestionnaireService {
     }
 
     @Transactional
+    public MarketingQuestion createMarketingQuestion(Questionnaire questionnaire, String questionContent) {
+        MarketingQuestion mq = new MarketingQuestion(questionContent, questionnaire);
+        em.persist(mq);
+        em.flush();
+        return mq;
+    }
+
+    @Transactional
     public MarketingAnswer createMarketingAnswer(User user, MarketingQuestion question, String answerContent) {
         MarketingAnswer answer = new MarketingAnswer(user, question, answerContent);
         em.persist(answer);
