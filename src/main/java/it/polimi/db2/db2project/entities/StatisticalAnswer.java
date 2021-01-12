@@ -16,15 +16,16 @@ public class StatisticalAnswer {
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
     @NotNull
-    private String answer;
+    private int answer;
 
-    public StatisticalAnswer(User user, StatisticalQuestion statisticalQuestion, String answer) {
+    public StatisticalAnswer(User user, StatisticalQuestion statisticalQuestion, int answer) {
         this.user = user;
         this.statisticalQuestion = statisticalQuestion;
         this.answer = answer;
     }
 
     public StatisticalAnswer() {
+
     }
 
     public Long getId() {
@@ -47,11 +48,11 @@ public class StatisticalAnswer {
         this.statisticalQuestion = statisticalQuestion;
     }
 
-    public String getAnswer() {
+    public int getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(int answer) {
         this.answer = answer;
     }
 }

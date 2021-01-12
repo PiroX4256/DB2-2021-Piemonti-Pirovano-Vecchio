@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NamedQueries({@NamedQuery(name = "MarketingQuestion.findAll", query = "SELECT q FROM MarketingQuestion q ")})
+@NamedQueries({@NamedQuery(name = "MarketingQuestion.findAll", query = "SELECT q FROM MarketingQuestion q "),})
+                @NamedQuery(name = "MarketingQuestion.findById", query = "SELECT q FROM MarketingQuestion q WHERE q.id = ?1")
 public class MarketingQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

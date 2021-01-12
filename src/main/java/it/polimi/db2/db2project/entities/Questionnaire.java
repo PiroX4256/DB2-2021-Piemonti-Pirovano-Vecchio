@@ -26,9 +26,6 @@ public class Questionnaire {
     @OneToMany(mappedBy = "questionnaire")
     private List<MarketingQuestion> marketingQuestions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "questionnaire")
-    private List<StatisticalQuestion> statisticalQuestions = new ArrayList<>();
-
     protected Questionnaire() {}
 
     public Questionnaire(String productName, String productImage, Date date) {
@@ -79,18 +76,6 @@ public class Questionnaire {
 
     public void setMarketingQuestions(List<MarketingQuestion> marketingQuestions) {
         this.marketingQuestions = marketingQuestions;
-    }
-
-    public List<StatisticalQuestion> getStatisticalQuestions() {
-        return statisticalQuestions;
-    }
-
-    public void setStatisticalQuestions(List<StatisticalQuestion> statisticalQuestions) {
-        this.statisticalQuestions = statisticalQuestions;
-    }
-
-    public void addStatisticalQuestione(StatisticalQuestion statisticalQuestion) {
-        this.statisticalQuestions.add(statisticalQuestion);
     }
 
     public void addMarketingQuestion(MarketingQuestion marketingQuestion) {

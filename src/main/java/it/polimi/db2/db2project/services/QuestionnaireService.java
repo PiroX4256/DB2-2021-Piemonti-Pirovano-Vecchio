@@ -1,6 +1,7 @@
 package it.polimi.db2.db2project.services;
 
-import it.polimi.db2.db2project.entities.Questionnaire;
+import it.polimi.db2.db2project.entities.*;
+import it.polimi.db2.db2project.model.AnswersDTO;
 import it.polimi.db2.db2project.model.QuestionnaireDTO;
 import org.hibernate.type.CalendarTimeType;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,22 @@ public class QuestionnaireService {
         return q;
     }
 
+    @Transactional
+    public MarketingAnswer createMarketingAnswer(User user, MarketingQuestion question, String answerContent) {
+        MarketingAnswer answer = new MarketingAnswer(user, question, answerContent);
+        em.persist(answer);
+        em.flush();
+        return answer;
+    }
+
+    @Transactional
+    public StatisticalAnswer createStatisticalAnswer(User user, StatisticalQuestion question, int answerContent) {
+        StatisticalAnswer answer = new StatisticalAnswer(user, question, answerContent);
+        em.persist(answer);
+        em.flush();
+        return answer;
+    }
+
     public List<Questionnaire> findAllQuestionnaires() {
         return em.createNamedQuery("Questionnaire.findAll", Questionnaire.class).getResultList();
     }
@@ -40,5 +57,4 @@ public class QuestionnaireService {
     public Questionnaire findById(Long id) {
         return em.createNamedQuery("Questionnaire.findQuestionnaireById", Questionnaire.class).setParameter(1, id).getSingleResult();
     }
-
 }

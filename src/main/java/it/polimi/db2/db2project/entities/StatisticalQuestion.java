@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "StatisticalQuestion.findAll", query = "SELECT q FROM StatisticalQuestion q")})
 public class StatisticalQuestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
