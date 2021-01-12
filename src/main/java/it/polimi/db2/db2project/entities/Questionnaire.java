@@ -20,8 +20,8 @@ public class Questionnaire {
     @Column
     private Date date;
 
-    @ManyToMany(mappedBy = "questionnaireList")
-    private List<User> questionnaireCompiledBy = new ArrayList<>();
+    @ManyToMany(mappedBy = "questionnaires")
+    private List<UserFilled> questionnaireCompiledBy = new ArrayList<>();
 
     @OneToMany(mappedBy = "questionnaire")
     private List<MarketingQuestion> marketingQuestions = new ArrayList<>();
@@ -50,7 +50,7 @@ public class Questionnaire {
         return date;
     }
 
-    public List<User> getQuestionnaireCompiledBy() {
+    public List<UserFilled> getQuestionnaireCompiledBy() {
         return questionnaireCompiledBy;
     }
 
@@ -66,7 +66,7 @@ public class Questionnaire {
         this.date = date;
     }
 
-    public void setQuestionnaireCompiledBy(List<User> questionnaireCompiledBy) {
+    public void setQuestionnaireCompiledBy(List<UserFilled> questionnaireCompiledBy) {
         this.questionnaireCompiledBy = questionnaireCompiledBy;
     }
 
