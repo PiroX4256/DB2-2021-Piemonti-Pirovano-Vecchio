@@ -20,10 +20,10 @@ public class Questionnaire {
     @Column
     private Date date;
 
-    @OneToMany(mappedBy = "questionnaire")
+    @OneToMany(mappedBy = "questionnaire", orphanRemoval = true)
     private List<UserFilled> questionnaireCompiledBy = new ArrayList<>();
 
-    @OneToMany(mappedBy = "questionnaire")
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MarketingQuestion> marketingQuestions = new ArrayList<>();
 
     protected Questionnaire() {}

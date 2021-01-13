@@ -12,12 +12,12 @@ public class UserFilled {
     @EmbeddedId
     UserFilledKey id;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     @MapsId("questionnaireId")
     @JoinColumn(name = "questionnaire_id")
     private Questionnaire questionnaire;

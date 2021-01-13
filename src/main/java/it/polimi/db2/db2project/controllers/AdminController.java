@@ -33,7 +33,7 @@ public class AdminController {
 
     @PostMapping("/deleteQuestionnaire")
     public ResponseEntity<?> deleteQuestionnaire(@RequestBody Long questionnaireId) {
-
+        questionnaireService.deleteQuestionnaire(questionnaireId);
         return ResponseEntity.ok().build();
     }
 

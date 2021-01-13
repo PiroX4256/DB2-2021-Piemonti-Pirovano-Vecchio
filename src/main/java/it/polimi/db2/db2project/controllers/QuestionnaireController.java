@@ -34,11 +34,6 @@ public class QuestionnaireController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/new")
-    public ResponseEntity<?> createQuestionnaire(@RequestBody ProductDTO productDTO) {
-        return ResponseEntity.ok(questionnaireService.createQuestionnaire(productDTO));
-    }
-
     @GetMapping("/getQuestionnaireFromId")
     public ResponseEntity<?> getQuestionnaireFromId(@RequestParam Long id){
         Questionnaire questionnaire = questionnaireService.findById(id);

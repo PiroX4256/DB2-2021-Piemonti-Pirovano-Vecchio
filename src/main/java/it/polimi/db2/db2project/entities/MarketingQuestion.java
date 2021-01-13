@@ -14,7 +14,7 @@ public class MarketingQuestion {
     private Long id;
     private String questionContent;
 
-    @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<MarketingAnswer> marketingAnswer;
 

@@ -5,6 +5,7 @@ import it.polimi.db2.db2project.model.ProductDTO;
 import org.springframework.stereotype.Service;
 
 import javax.ejb.Stateless;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -23,6 +24,14 @@ public class QuestionnaireService {
         em.persist(q);
         em.flush();
         return q;
+    }
+
+    @Transactional
+    public void deleteQuestionnaire(Long questionnaireId) {
+        Questionnaire questionnaire = this.findById(questionnaireId);
+        em.remove(questionnaire);
+        em.flush();
+        em.clear();
     }
 
     @Transactional
