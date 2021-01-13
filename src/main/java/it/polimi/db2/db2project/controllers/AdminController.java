@@ -2,6 +2,7 @@ package it.polimi.db2.db2project.controllers;
 
 
 import it.polimi.db2.db2project.entities.MarketingQuestion;
+import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.model.MarketingQuestionDTO;
 import it.polimi.db2.db2project.model.QuestionnaireDTO;
 import it.polimi.db2.db2project.services.QuestionnaireService;
@@ -23,12 +24,17 @@ public class AdminController {
 
     @PostMapping("/newQuestionnaire")
     public ResponseEntity<?> createMarketingQuestion(@RequestBody QuestionnaireDTO questionnaireDTO) {
-        return ResponseEntity.ok().build();     //TODO implementare
+        Questionnaire questionnaire = questionnaireService.createQuestionnaire(questionnaireDTO.getProductDTO());
+        for(String questionContent : questionnaireDTO.getMarketingQuestions()) {
+            questionnaireService.createMarketingQuestion(questionnaire, questionContent);
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/deleteQuestionnaire")
     public ResponseEntity<?> deleteQuestionnaire(@RequestBody Long questionnaireId) {
-        return ResponseEntity.ok().build();     //TODO
+
+        return ResponseEntity.ok().build();
     }
 
 }

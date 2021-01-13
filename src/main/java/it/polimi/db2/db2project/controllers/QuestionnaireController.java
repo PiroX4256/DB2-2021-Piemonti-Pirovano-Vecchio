@@ -4,6 +4,7 @@ import it.polimi.db2.db2project.entities.*;
 import it.polimi.db2.db2project.model.Answer;
 import it.polimi.db2.db2project.model.AnswersDTO;
 import it.polimi.db2.db2project.model.ProductDTO;
+import it.polimi.db2.db2project.model.Status;
 import it.polimi.db2.db2project.services.MarketingQuestionService;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import it.polimi.db2.db2project.services.StatisticalQuestionService;
@@ -57,11 +58,16 @@ public class QuestionnaireController {
     public ResponseEntity<?> fillQuestionnaire(@RequestBody AnswersDTO answersDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.search(authentication.getName());
+        Status status;
         if (!answersDTO.isCancelled()) {
+
+            //add marketingAnswers
             for(Answer marketingAnswer : answersDTO.getMarketingAnswer()) {
                 MarketingQuestion marketingQuestion = marketingQuestionService.findById(marketingAnswer.getQuestionId());
                 questionnaireService.createMarketingAnswer(user, marketingQuestion , marketingAnswer.getAnswerContent());
             }
+
+            //add statisticalAnswers
             List<StatisticalQuestion> statisticalQuestionList = statisticalQuestionService.findAll();
             Iterator<StatisticalQuestion> statisticalQuestionIterator = statisticalQuestionList.iterator();
             for(Integer statisticalAnswer: answersDTO.getStatisticalAnswer()) {
@@ -70,10 +76,16 @@ public class QuestionnaireController {
                     questionnaireService.createStatisticalAnswer(user, statisticalQuestionIterator.next(), answerContent);
                 }
             }
+            status = Status.SUBMITTED;
         }
         else {
-        //TODO add Submitted or isCancelled
+            status = Status.CANCELLED;
         }
-        return ResponseEntity.ok().build();
+
+        //add in UserFilled
+        Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+        userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
+
+        return ResponseEntity.ok(status);
     }
 }

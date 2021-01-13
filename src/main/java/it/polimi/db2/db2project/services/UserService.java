@@ -1,6 +1,10 @@
 package it.polimi.db2.db2project.services;
 
+import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.entities.User;
+import it.polimi.db2.db2project.entities.UserFilled;
+import it.polimi.db2.db2project.entities.UserFilledKey;
+import it.polimi.db2.db2project.model.Status;
 import it.polimi.db2.db2project.model.UserDTO;
 import it.polimi.db2.db2project.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +65,14 @@ public class UserService {
         nUser.setPassword(passwordEncoder.encode(user.getPassword()));
         em.persist(nUser);
         return nUser;
+    }
+
+    @Transactional
+    public UserFilled createUserFilled(Long userId, Long questionnaireId, User user, Questionnaire questionnaire, Status status) {
+        UserFilled userFilled = new UserFilled(userId, questionnaireId, user, questionnaire, status);
+        em.persist(userFilled);
+        em.flush();
+        return userFilled;
     }
 
     public String signin(String username, String password) {
