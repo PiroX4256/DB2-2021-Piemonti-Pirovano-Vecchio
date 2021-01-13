@@ -5,7 +5,21 @@
     <h3>Questionnaire of the day:</h3>
     <h3><u>{{ productName }}</u></h3>
     <div class="input-group input-group-lg">
-      <img class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`">
+      <img class = "img-responsive img-product" :src="`${productImage}`" :alt="`${productName}`">
+    </div>
+
+    <div class="input-group input-group-lg">
+      <h5 v-for="(q, idx) in marketingQuestionList" v-bind:key="idx">{{ q.questionContent }}</h5>
+      <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" :to="{ name: 'FillQuestionnaire',
+      params: {
+        questions: this.marketingQuestionList,
+        productName: this.productName,
+        productImage: this.productImage,
+        date: this.date,
+        statisticalQuestions: this.statisticalQuestionList
+      }}">
+        Fill questionnaire
+      </router-link>
     </div>
   </div>
   {{ errorMsg }}
@@ -24,7 +38,9 @@ export default {
       errorMsg: '',
       productName: '',
       productImage: '',
-      date: ''
+      date: '',
+      marketingQuestionList: [],
+      statisticalQuestionList: [],
     }
   },
   computed: {
@@ -41,9 +57,9 @@ export default {
   },
   async created() {
     if(!this.getBearer && !this.getAdminBearer) {
-      router.push("/login");
+      await router.push("/login");
     } else if(this.getAdminBearer) {
-      router.push("/adminHomePage");
+      await router.push("/adminHomePage");
     } else
     //alert(`${this.getBearer}`);
     {
@@ -55,6 +71,8 @@ export default {
         this.productName = res.data.questionnaire.productName;
         this.productImage = res.data.questionnaire.productImage;
         this.date = res.data.questionnaire.date;
+        this.marketingQuestionList = res.data.marketingQuestionList;
+        this.statisticalQuestionList = res.data.statisticalQuestionList;
         console.log(`response: ${JSON.stringify(res)}`);
       }).catch((res) => {
         if (res.status === 403) {
@@ -62,7 +80,7 @@ export default {
           console.log(`CLEARING STORAGE...`);
           this.clearBearer();
         } else {
-          this.errorMsg = `ERROR ${res.status}`;
+          this.errorMsg = `SERVER ERROR`;
         }
       });
     }

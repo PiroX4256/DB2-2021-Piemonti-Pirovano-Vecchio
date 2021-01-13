@@ -121,3 +121,12 @@ label {
     max-height: 400px;
     margin: auto;
 }
+
+.img-product {
+    padding-bottom: 5px;
+    max-height: 300px;
+}
+
+.lb-question {
+    font-size: 20px;
+}

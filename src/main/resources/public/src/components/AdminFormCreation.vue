@@ -20,7 +20,7 @@
     <input v-model="productImage" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
   </div>
   <div class="input-group input-group-lg">
-    <img v-if="productName && productImage" class="img-responsive" :src="`${productImage}`" :alt="`${productName}`">
+    <img v-if="productName && productImage" class="img-responsive img-product" :src="`${productImage}`" :alt="`${productName}`">
   </div>
   <!-- Questions -->
   <div v-for="question in questions" v-bind:key="question" class="input-group input-group-lg">
@@ -73,7 +73,7 @@ export default {
       }
     },
     submitForm() {
-      axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/new`, {
+      axios.post(`${process.env.VUE_APP_API_ROOT}/admin/newQuestionnaire`, {
         productDTO: {
           productName: this.productName,
           productImage: this.productImage,

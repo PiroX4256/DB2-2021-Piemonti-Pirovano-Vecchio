@@ -8,6 +8,7 @@ import AdminHomePage from "../components/AdminHomePage";
 import AdminFormCreation from "../components/AdminFormCreation";
 import AdminInspectQuestionnaire from "../components/AdminInspectQuestionnaire";
 import AdminDeleteQuestionnaire from "../components/AdminDeleteQuestionnaire";
+import QuestionnairePage from "../components/QuestionnairePage";
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,7 @@ const routes = [
     { path: '/adminCreateQuestionnaire', name: 'AdminCreateQuestionnaire', component: AdminFormCreation },
     { path: '/adminInspectQuestionnaire', name: 'AdminInspectQuestionnaire', component: AdminInspectQuestionnaire },
     { path: '/adminDeleteQuestionnaire', name: 'AdminDeleteQuestionnaire', component: AdminDeleteQuestionnaire },
+    { path: '/fill/:date', name:'FillQuestionnaire', component: QuestionnairePage, props: true }
 
 ]
 
