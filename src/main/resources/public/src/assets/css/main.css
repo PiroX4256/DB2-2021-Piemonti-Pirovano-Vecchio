@@ -130,3 +130,11 @@ label {
 .lb-question {
     font-size: 20px;
 }
+
+.card {
+    /* Added */
+    float: none; /* Added */
+    /* Added */
+    margin: 10px auto 10px;
+    width: inherit;
+}

@@ -9,7 +9,7 @@
     </div>
 
     <div class="input-group input-group-lg">
-      <h5 v-for="(q, idx) in marketingQuestionList" v-bind:key="idx">{{ q.questionContent }}</h5>
+      <!-- Fill questionnaire button -->
       <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" :to="{ name: 'FillQuestionnaire',
       params: {
         questions: this.marketingQuestionList,
@@ -20,6 +20,26 @@
       }}">
         Fill questionnaire
       </router-link>
+
+      <!-- List of questions with relative answers -->
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"
+              v-for="(q, idx) in reviews" v-bind:key="idx"><h5>{{ q.marketingQuestion }}</h5>
+            <ul class="list-group">
+              <li class="list-group"
+                v-for="(a, idx) in q.marketingAnswerList" v-bind:key="idx">
+                <blockquote class="blockquote">
+                  <p class="mb-0">{{ a.answer }}</p>
+                  <footer class="blockquote-footer">User <cite title="Source Title">{{ a.user.username }}</cite></footer>
+                </blockquote>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+
     </div>
   </div>
   {{ errorMsg }}
@@ -81,7 +101,7 @@ export default {
               'Authorization': `Bearer ${this.getBearer}`
             }
           }).then(res => {
-            console.log(res.data);
+            this.reviews = res.data;
           }).catch(res => {
             if (res.status === 403) {
               console.log(`ERROR: ${res.status}`);
