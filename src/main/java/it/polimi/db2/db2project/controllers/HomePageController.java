@@ -58,7 +58,7 @@ public class HomePageController {
         for(MarketingQuestion question : questionList) {
             List<MarketingAnswer> answers = question.getMarketingAnswer();
             if(answers != null) {
-                ReviewsDTO reviewsDTO = new ReviewsDTO(question); //TODO
+                ReviewsDTO reviewsDTO = new ReviewsDTO(question, answers);
                 reviewsDTOList.add(reviewsDTO);
             }
         }
