@@ -3,6 +3,7 @@ package it.polimi.db2.db2project.model;
 import java.util.Date;
 
 public class ProductDTO {
+    private Long id;
     private final String productName;
     private final String productImage;
     private final Date date;
@@ -23,5 +24,13 @@ public class ProductDTO {
 
     public Date getDate() {
         return date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

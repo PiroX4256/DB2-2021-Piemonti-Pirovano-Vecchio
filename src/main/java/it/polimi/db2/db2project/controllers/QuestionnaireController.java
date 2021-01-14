@@ -11,10 +11,12 @@ import it.polimi.db2.db2project.services.StatisticalQuestionService;
 import it.polimi.db2.db2project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -82,5 +84,18 @@ public class QuestionnaireController {
         userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
 
         return ResponseEntity.ok(status);
+    }
+
+    @GetMapping("/getAllQuestionnaires")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllQuestionnaires() {
+        List<Questionnaire> questionnaires = questionnaireService.findAllQuestionnaires();
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        for(Questionnaire questionnaire : questionnaires) {
+            ProductDTO productDTO = new ProductDTO(questionnaire.getProductName(), questionnaire.getProductImage(), questionnaire.getDate());
+            productDTO.setId(questionnaire.getId());
+            productDTOs.add(productDTO);
+        }
+        return ResponseEntity.ok(productDTOs);
     }
 }
