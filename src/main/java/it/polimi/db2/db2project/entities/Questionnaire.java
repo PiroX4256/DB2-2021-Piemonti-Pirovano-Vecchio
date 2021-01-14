@@ -1,5 +1,7 @@
 package it.polimi.db2.db2project.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +16,13 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String productName;
+    @NotNull
     private String productImage;
     @Temporal(TemporalType.DATE)
-    @Column
+    @Column(unique = true)
+    @NotNull
     private Date date;
 
     @OneToMany(mappedBy = "questionnaire", orphanRemoval = true)
