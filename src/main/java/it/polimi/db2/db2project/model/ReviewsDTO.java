@@ -10,9 +10,9 @@ public class ReviewsDTO {
     private final String marketingQuestion;
     private final List<MarketingAnswer> marketingAnswerList;
 
-    public ReviewsDTO(MarketingQuestion marketingQuestion) {
+    public ReviewsDTO(MarketingQuestion marketingQuestion, List<MarketingAnswer> marketingAnswerList) {
         this.marketingQuestion = marketingQuestion.getQuestionContent();
-        this.marketingAnswerList = marketingQuestion.getMarketingAnswer();
+        this.marketingAnswerList = marketingAnswerList;
     }
 
     public String getMarketingQuestion() {

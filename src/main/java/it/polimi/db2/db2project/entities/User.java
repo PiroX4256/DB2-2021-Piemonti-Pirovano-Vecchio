@@ -1,5 +1,7 @@
 package it.polimi.db2.db2project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,11 +14,15 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
     private String username;
+    @JsonIgnore
     private String email;
+    @JsonIgnore
     private String password;
     private Date lastLogin;
+    @JsonIgnore
     private boolean active;
     private int score;
 
