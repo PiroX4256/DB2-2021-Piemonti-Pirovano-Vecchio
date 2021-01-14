@@ -41,6 +41,7 @@ export default {
       date: '',
       marketingQuestionList: [],
       statisticalQuestionList: [],
+      reviews: [],
     }
   },
   computed: {
@@ -63,7 +64,7 @@ export default {
     } else
     //alert(`${this.getBearer}`);
     {
-      axios.get("http://localhost:8081/home/getHomePage", {
+      axios.get(`${process.env.VUE_APP_API_ROOT}/home/getHomePage`, {
         headers: {
           'Authorization': `Bearer ${this.getBearer}`
         }
@@ -74,7 +75,23 @@ export default {
         this.marketingQuestionList = res.data.marketingQuestionList;
         this.statisticalQuestionList = res.data.statisticalQuestionList;
         console.log(`response: ${JSON.stringify(res)}`);
-      }).catch((res) => {
+      }).then(
+          axios.get(`${process.env.VUE_APP_API_ROOT}/home/getReviews`, {
+            headers: {
+              'Authorization': `Bearer ${this.getBearer}`
+            }
+          }).then(res => {
+            console.log(res.data);
+          }).catch(res => {
+            if (res.status === 403) {
+              console.log(`ERROR: ${res.status}`);
+              console.log(`CLEARING STORAGE...`);
+              this.clearBearer();
+            } else {
+              this.errorMsg = `SERVER ERROR`;
+            }
+          })
+      ).catch((res) => {
         if (res.status === 403) {
           console.log(`ERROR: ${res.status}`);
           console.log(`CLEARING STORAGE...`);
