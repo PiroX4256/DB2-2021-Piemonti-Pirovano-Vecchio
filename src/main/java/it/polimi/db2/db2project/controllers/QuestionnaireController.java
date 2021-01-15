@@ -5,10 +5,7 @@ import it.polimi.db2.db2project.model.Answer;
 import it.polimi.db2.db2project.model.AnswersDTO;
 import it.polimi.db2.db2project.model.ProductDTO;
 import it.polimi.db2.db2project.model.Status;
-import it.polimi.db2.db2project.services.MarketingQuestionService;
-import it.polimi.db2.db2project.services.QuestionnaireService;
-import it.polimi.db2.db2project.services.StatisticalQuestionService;
-import it.polimi.db2.db2project.services.UserService;
+import it.polimi.db2.db2project.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/questionnaire")
@@ -35,6 +29,8 @@ public class QuestionnaireController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OffensiveWordService offensiveWordService;
 
     @GetMapping("/getQuestionnaireFromId")
     public ResponseEntity<?> getQuestionnaireFromId(@RequestParam Long id){
@@ -57,12 +53,22 @@ public class QuestionnaireController {
         User user = userService.search(authentication.getName());
         Status status;
         if (!answersDTO.isCancelled()) {
-
+            List<OffensiveWords> offensiveWords = offensiveWordService.getAllOffensiveWords();
             //add marketingAnswers
             for(Answer marketingAnswer : answersDTO.getMarketingAnswer()) {
-                MarketingQuestion marketingQuestion = marketingQuestionService.findById(marketingAnswer.getQuestionId());
-                questionnaireService.createMarketingAnswer(user, marketingQuestion , marketingAnswer.getAnswerContent());
+                for (String word : marketingAnswer.getAnswerContent().split(" ")) {
+                    if (offensiveWords.stream().filter(n -> n.getWord().equalsIgnoreCase(word)).count() > 0) {
+                        return ResponseEntity.unprocessableEntity().body("There are some offensive words in your answer!");
+                    }
+                }
             }
+            status = Status.SUBMITTED;
+            //add in UserFilled
+            Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+            userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
+            answersDTO.getMarketingAnswer()
+                    .forEach(n -> questionnaireService.createMarketingAnswer(
+                            user, marketingQuestionService.findById(n.getQuestionId()), n.getAnswerContent()));
 
             //add statisticalAnswers
             List<StatisticalQuestion> statisticalQuestionList = statisticalQuestionService.findAll();
@@ -73,15 +79,12 @@ public class QuestionnaireController {
                     questionnaireService.createStatisticalAnswer(user, statisticalQuestionIterator.next(), answerContent);
                 }
             }
-            status = Status.SUBMITTED;
         }
         else {
             status = Status.CANCELLED;
+            Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+            userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
         }
-
-        //add in UserFilled
-        Questionnaire questionnaire = questionnaireService.findByDate(new Date());
-        userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
 
         return ResponseEntity.ok(status);
     }
