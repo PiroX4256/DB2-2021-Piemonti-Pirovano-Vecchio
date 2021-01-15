@@ -56,14 +56,19 @@ public class QuestionnaireController {
             List<OffensiveWords> offensiveWords = offensiveWordService.getAllOffensiveWords();
             //add marketingAnswers
             for(Answer marketingAnswer : answersDTO.getMarketingAnswer()) {
-                for(String word: marketingAnswer.getAnswerContent().split(" ")) {
-                    if(offensiveWords.stream().filter(n -> n.getWord().equalsIgnoreCase(word)).count() > 0) {
+                for (String word : marketingAnswer.getAnswerContent().split(" ")) {
+                    if (offensiveWords.stream().filter(n -> n.getWord().equalsIgnoreCase(word)).count() > 0) {
                         return ResponseEntity.unprocessableEntity().body("There are some offensive words in your answer!");
                     }
                 }
-                MarketingQuestion marketingQuestion = marketingQuestionService.findById(marketingAnswer.getQuestionId());
-                questionnaireService.createMarketingAnswer(user, marketingQuestion , marketingAnswer.getAnswerContent());
             }
+            status = Status.SUBMITTED;
+            //add in UserFilled
+            Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+            userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
+            answersDTO.getMarketingAnswer()
+                    .forEach(n -> questionnaireService.createMarketingAnswer(
+                            user, marketingQuestionService.findById(n.getQuestionId()), n.getAnswerContent()));
 
             //add statisticalAnswers
             List<StatisticalQuestion> statisticalQuestionList = statisticalQuestionService.findAll();
@@ -74,15 +79,12 @@ public class QuestionnaireController {
                     questionnaireService.createStatisticalAnswer(user, statisticalQuestionIterator.next(), answerContent);
                 }
             }
-            status = Status.SUBMITTED;
         }
         else {
             status = Status.CANCELLED;
+            Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+            userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
         }
-
-        //add in UserFilled
-        Questionnaire questionnaire = questionnaireService.findByDate(new Date());
-        userService.createUserFilled(user.getId(), questionnaire.getId(), user, questionnaire, status);
 
         return ResponseEntity.ok(status);
     }
