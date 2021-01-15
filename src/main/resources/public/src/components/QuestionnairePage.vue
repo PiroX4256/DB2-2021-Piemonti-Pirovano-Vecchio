@@ -17,10 +17,23 @@
     <button type="submit" class="btn btn-success">Submit</button>
 
     <div class="alert alert-danger" role="alert" v-if="errorMsg" style="padding-top: 5px"> {{ errorMsg }} </div>
-    <div class="alert alert-danger" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
+    <div class="alert alert-success" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
 
   </form>
-
+  <div>
+    <b-modal ref="modal-s" title="Operation successful" >
+      <p class="my-4">Success!</p>
+      <template #modal-footer>
+        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
+      </template>
+    </b-modal>
+    <b-modal ref="modal-e" title="Error">
+      <p class="my-4">You have already submitted this questionnaire!</p>
+      <template #modal-footer>
+        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
+      </template>
+    </b-modal>
+  </div>
 </div>
 </template>
 
@@ -92,16 +105,20 @@ export default {
           console.log(JSON.stringify(res.data));
           this.successMsg = 'Submit successful!';
           this.submitted = true;
+          this.$refs['modal-s'].show();
         } else {
           this.errorMsg = 'Unexpected error! Retry later.';
+          this.$refs['modal-e'].show();
         }
       }).catch(res => {
         this.errorMsg = `Server error! Retry later. Error code: ${res.status}`;
+        this.$refs['modal-e'].show();
       });
     },
     cancelForm() {
       if(this.submitted) {
         this.errorMsg = 'You have already submitted!';
+        this.$refs['modal-e'].show();
         return;
       }
       axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/newAnswers`, {
@@ -118,11 +135,14 @@ export default {
           console.log(JSON.stringify(res.data));
           this.successMsg = 'Cancel successful!';
           this.submitted = true;
+          this.$refs['modal-s'].show();
         } else {
           this.errorMsg = 'Unexpected error! Retry later.';
+          this.$refs['modal-e'].show();
         }
       }).catch(res => {
         this.errorMsg = `Server error! Retry later. Error code: ${res.status}`;
+        this.$refs['modal-e'].show();
       });
     }
   }
