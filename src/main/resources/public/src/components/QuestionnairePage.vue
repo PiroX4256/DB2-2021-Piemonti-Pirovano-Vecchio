@@ -21,13 +21,13 @@
 
   </form>
   <div>
-    <b-modal ref="modal-s" title="BootstrapVue" >
+    <b-modal ref="modal-s" title="Operation successful" >
       <p class="my-4">Success!</p>
       <template #modal-footer>
         <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
       </template>
     </b-modal>
-    <b-modal ref="modal-e" title="BootstrapVue">
+    <b-modal ref="modal-e" title="Error">
       <p class="my-4">You have already submitted this questionnaire!</p>
       <template #modal-footer>
         <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
