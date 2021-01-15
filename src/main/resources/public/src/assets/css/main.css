@@ -127,6 +127,10 @@ label {
     max-height: 300px;
 }
 
+.img-little {
+    max-height: 50px;
+}
+
 .lb-question {
     font-size: 20px;
 }
