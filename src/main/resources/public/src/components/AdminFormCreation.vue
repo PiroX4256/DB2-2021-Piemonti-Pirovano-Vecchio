@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     appendQuestion() {
-      if(!this.questions.includes(this.newQuestion)) {
+      if(!this.questions.includes(this.newQuestion) && this.newQuestion) {
         this.questions.push(this.newQuestion);
         this.newQuestion = '';
       }
