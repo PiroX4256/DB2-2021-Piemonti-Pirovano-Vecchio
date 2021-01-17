@@ -16,7 +16,6 @@ public class StatisticalAnswer {
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
 
-    @Column(nullable = false)
     @ManyToOne
     @JoinColumn
     private Questionnaire questionnaire;
