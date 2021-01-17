@@ -1,13 +1,7 @@
 package it.polimi.db2.db2project.controllers;
 
-import it.polimi.db2.db2project.entities.MarketingAnswer;
-import it.polimi.db2.db2project.entities.MarketingQuestion;
-import it.polimi.db2.db2project.entities.Questionnaire;
-import it.polimi.db2.db2project.entities.StatisticalQuestion;
-import it.polimi.db2.db2project.model.HomePageDTO;
-import it.polimi.db2.db2project.model.MarketingQuestionDTO;
-import it.polimi.db2.db2project.model.ProductDTO;
-import it.polimi.db2.db2project.model.ReviewsDTO;
+import it.polimi.db2.db2project.entities.*;
+import it.polimi.db2.db2project.model.*;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import it.polimi.db2.db2project.services.StatisticalQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +54,14 @@ public class HomePageController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(reviewsDTOList);
+    }
+
+    @GetMapping("/getLeaderboard")
+    public ResponseEntity<?> getLeaderboard() {
+        Questionnaire questionnaire = questionnaireService.findByDate(new Date());
+        List<UserFilled> userList = questionnaireService.findUsersFilledQuestionnaire(questionnaire.getId());
+        List<UserLeaderboardDTO> userLeaderboardDTOS = new ArrayList<>();
+        userList.forEach(n -> userLeaderboardDTOS.add(new UserLeaderboardDTO(n.getUser().getUsername(), n.getUser().getScore())));
+        return ResponseEntity.ok(userLeaderboardDTOS);
     }
 }

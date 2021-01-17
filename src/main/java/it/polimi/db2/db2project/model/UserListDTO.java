@@ -4,8 +4,8 @@ import java.util.List;
 
 public class UserListDTO {
 
-    private List<String> submittedUsers;
-    private List<String> cancelledUsers;
+    private final List<String> submittedUsers;
+    private final List<String> cancelledUsers;
 
     public UserListDTO(List<String> submittedUsers, List<String> cancelledUsers) {
         this.submittedUsers = submittedUsers;
