@@ -2,6 +2,7 @@ package it.polimi.db2.db2project.services;
 
 import it.polimi.db2.db2project.entities.*;
 import it.polimi.db2.db2project.model.ProductDTO;
+import it.polimi.db2.db2project.model.Status;
 import org.springframework.stereotype.Service;
 
 import javax.ejb.Stateless;
@@ -51,8 +52,8 @@ public class QuestionnaireService {
     }
 
     @Transactional
-    public StatisticalAnswer createStatisticalAnswer(User user, StatisticalQuestion question, int answerContent) {
-        StatisticalAnswer answer = new StatisticalAnswer(user, question, answerContent);
+    public StatisticalAnswer createStatisticalAnswer(User user, StatisticalQuestion question, int answerContent, Questionnaire questionnaireId) {
+        StatisticalAnswer answer = new StatisticalAnswer(user, question, answerContent, questionnaireId);
         em.persist(answer);
         em.flush();
         return answer;
@@ -68,5 +69,9 @@ public class QuestionnaireService {
 
     public Questionnaire findById(Long id) {
         return em.createNamedQuery("Questionnaire.findQuestionnaireById", Questionnaire.class).setParameter(1, id).getSingleResult();
+    }
+
+    public List<UserFilled> findUsersByStatus(int status, Long questionnaireId) {
+        return em.createNamedQuery("UserFilled.findByStatus", UserFilled.class).setParameter(1, status).setParameter(2, questionnaireId).getResultList();
     }
 }

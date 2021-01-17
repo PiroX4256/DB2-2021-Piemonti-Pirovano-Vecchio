@@ -15,17 +15,28 @@ public class StatisticalAnswer {
     @NotNull
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
+
     @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn
+    private Questionnaire questionnaire;
+
+    @NotNull
     private int answer;
 
-    public StatisticalAnswer(User user, StatisticalQuestion statisticalQuestion, int answer) {
+    public StatisticalAnswer(User user, StatisticalQuestion statisticalQuestion, int answer, Questionnaire questionnaire) {
         this.user = user;
         this.statisticalQuestion = statisticalQuestion;
         this.answer = answer;
+        this.questionnaire = questionnaire;
     }
 
     public StatisticalAnswer() {
 
+    }
+
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
     }
 
     public Long getId() {
