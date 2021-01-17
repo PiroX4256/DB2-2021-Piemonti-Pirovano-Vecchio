@@ -41,12 +41,21 @@
   <div class="input-group input-group-lg">
     <button type="button" class="btn btn-success btn-lg btn-block" @click="submitForm">Submit</button>
   </div>
+
+  <!-- Modal server response -->
+  <b-modal ref="modal-s" title="Operation successful" >
+    <p class="my-4">Success!</p>
+    <template #modal-footer>
+      <b-button variant="primary" @click="goToHomepage">Back</b-button>
+    </template>
+  </b-modal>
 </div>
 </template>
 
 <script>
 import axios from "axios";
 import {mapGetters} from "vuex";
+import router from "../router";
 
 export default {
   name: "AdminFormCreation",
@@ -87,10 +96,14 @@ export default {
       }
     ).then(res => {
         console.log(`${res.status}:: ${res.data}`);
+        this.$refs['modal-s'].show();
       })
       .catch(res => {
         console.log(`ERROR: ${res.status}:: ${res.data}`);
       })
+    },
+    goToHomepage() {
+      router.push('/adminHomePage');
     }
   }
 }
