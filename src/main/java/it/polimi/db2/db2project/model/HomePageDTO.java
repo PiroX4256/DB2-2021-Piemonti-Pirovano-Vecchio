@@ -4,9 +4,9 @@ import java.util.List;
 
 public class HomePageDTO {
 
-    ProductDTO questionnaire;
-    List<MarketingQuestionDTO> marketingQuestionList;
-    List<String> statisticalQuestionList;
+    private final ProductDTO questionnaire;
+    private final List<MarketingQuestionDTO> marketingQuestionList;
+    private final List<String> statisticalQuestionList;
 
     public HomePageDTO(ProductDTO questionnaire, List<MarketingQuestionDTO> questionList, List<String> statisticalQuestion) {
         this.questionnaire = questionnaire;
@@ -20,5 +20,9 @@ public class HomePageDTO {
 
     public List<MarketingQuestionDTO> getMarketingQuestionList() {
         return marketingQuestionList;
+    }
+
+    public List<String> getStatisticalQuestionList() {
+        return statisticalQuestionList;
     }
 }
