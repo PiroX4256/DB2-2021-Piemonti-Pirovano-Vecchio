@@ -15,7 +15,7 @@ public class StatisticalAnswer {
     @NotNull
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
-    @NotNull
+    @Column(nullable = false)
     private int answer;
 
     public StatisticalAnswer(User user, StatisticalQuestion statisticalQuestion, int answer) {

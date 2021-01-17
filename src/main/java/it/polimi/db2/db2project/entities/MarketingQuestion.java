@@ -1,6 +1,7 @@
 package it.polimi.db2.db2project.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +13,7 @@ public class MarketingQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(nullable = false)
     private String questionContent;
 
     @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.ALL, orphanRemoval = true)

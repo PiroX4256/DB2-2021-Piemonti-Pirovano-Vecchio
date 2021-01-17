@@ -1,5 +1,7 @@
 package it.polimi.db2.db2project.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,8 +10,11 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     protected Admin() {}

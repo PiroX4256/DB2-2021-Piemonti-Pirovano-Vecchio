@@ -16,13 +16,12 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String productName;
-    @NotNull
+    @Column(nullable = false)
     private String productImage;
     @Temporal(TemporalType.DATE)
-    @Column(unique = true)
-    @NotNull
+    @Column(unique = true, nullable = false)
     private Date date;
 
     @OneToMany(mappedBy = "questionnaire", orphanRemoval = true)
