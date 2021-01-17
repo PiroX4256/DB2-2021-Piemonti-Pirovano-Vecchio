@@ -2,8 +2,8 @@ package it.polimi.db2.db2project.model;
 
 public class MarketingQuestionDTO {
 
-    String questionContent;
-    Long questionId;
+    private final String questionContent;
+    private final Long questionId;
 
     public MarketingQuestionDTO(String questionContent, Long questionId) {
         this.questionContent = questionContent;

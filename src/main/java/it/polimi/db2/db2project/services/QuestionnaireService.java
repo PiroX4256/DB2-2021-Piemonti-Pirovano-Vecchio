@@ -74,4 +74,8 @@ public class QuestionnaireService {
     public List<UserFilled> findUsersByStatus(int status, Long questionnaireId) {
         return em.createNamedQuery("UserFilled.findByStatus", UserFilled.class).setParameter(1, status).setParameter(2, questionnaireId).getResultList();
     }
+
+    public List<UserFilled> findUsersFilledQuestionnaire(Long questionnaireId) {
+        return em.createNamedQuery("UserFilled.findByQuestionnaireId", UserFilled.class).setParameter(1, questionnaireId).getResultList();
+    }
 }
