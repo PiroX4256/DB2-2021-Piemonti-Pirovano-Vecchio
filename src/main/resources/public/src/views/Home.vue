@@ -94,7 +94,7 @@ export default {
         this.date = res.data.questionnaire.date;
         this.marketingQuestionList = res.data.marketingQuestionList;
         this.statisticalQuestionList = res.data.statisticalQuestionList;
-        console.log(`response: ${JSON.stringify(res)}`);
+        // console.log(`response: ${JSON.stringify(res)}`);
       }).then(
           axios.get(`${process.env.VUE_APP_API_ROOT}/home/getReviews`, {
             headers: {

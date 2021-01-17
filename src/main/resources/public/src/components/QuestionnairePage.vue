@@ -6,20 +6,36 @@
     <img class = "img-responsive" :src="`${productImage}`" :alt="`${productName}`">
   </div>
 
-
-  <form @submit.prevent="submitForm">
+  <form @submit.prevent="checkForm" v-if="formStep === 0">
     <div class="form-group" v-for="(q, idx) in questions" v-bind:key="idx">
       <label class="lb-question" :for="q.questionId">{{ q.questionContent }}</label>
       <textarea v-model="q.answer" type="text" class="form-control" :id="q.questionId" placeholder="Enter your answer"></textarea>
     </div>
 
+    <button type="submit" class="btn btn-success">Next</button>
+  </form>
+
+  <form @submit.prevent="submitForm" v-if="formStep === 1">
+    <b-form-group v-if="statisticalQuestions[0]">
+      <label class="lb-question" for="age-spin-button">{{ statisticalQuestions[0] }}</label>
+      <SpinButtonCustom id="age-spin-button" :value="age" @input="setAge($event)"></SpinButtonCustom>
+    </b-form-group>
+
+    <b-form-group v-if="statisticalQuestions[1]">
+      <label class="lb-question" for="expertise">{{ statisticalQuestions[1] }}</label>
+      <b-form-select id="expertise" v-model="ex_select" :options="ex_options"></b-form-select>
+    </b-form-group>
+
+    <b-form-group v-if="statisticalQuestions[2]">
+      <label class="lb-question" for="gender">{{ statisticalQuestions[2] }}</label>
+      <b-form-select id="gender" v-model="g_select" :options="g_options"></b-form-select>
+    </b-form-group>
+
     <button type="button" class="btn btn-danger mr-2" @click="cancelForm">Cancel</button>
     <button type="submit" class="btn btn-success">Submit</button>
-
-    <div class="alert alert-danger" role="alert" v-if="errorMsg" style="padding-top: 5px"> {{ errorMsg }} </div>
-    <div class="alert alert-success" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
-
   </form>
+  <div class="alert alert-danger mr-2" role="alert" v-if="errorMsg" style="padding-top: 5px"> {{ errorMsg }} </div>
+  <div class="alert alert-success mr-2" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
   <div>
     <b-modal ref="modal-s" title="Operation successful" >
       <p class="my-4">Success!</p>
@@ -40,21 +56,37 @@
 <script>
 import axios from "axios";
 import {mapGetters} from "vuex";
+import SpinButtonCustom from "./SpinButtonCustom";
 
 export default {
   name: "QuestionnairePage",
+  components: {SpinButtonCustom},
   data() {
     return {
+      formStep: 0,
       questions: [],
       statisticalQuestions: [],
       productName: '',
       productImage: '',
       date: '',
+      age: 0,
       marketingAnswers: [],
       statisticalAnswers: [],
       successMsg: '',
       errorMsg: '',
       submitted: false,
+      ex_select: 0,
+      ex_options: [
+        { value: 1, text: 'Low' },
+        { value: 2, text: 'Medium' },
+        { value: 3, text: 'High' },
+      ],
+      g_select: 0,
+      g_options: [
+        { value: 1, text: 'Male' },
+        { value: 2, text: 'Female' },
+        { value: 3, text: 'Other' },
+      ],
     }
   },
   computed: {
@@ -70,25 +102,34 @@ export default {
     this.statisticalQuestions = this.$route.params.statisticalQuestions
   },
   methods: {
-    submitForm() {
-      if(this.submitted) {
-        this.errorMsg = 'You have already submitted!';
-        return;
-      }
+    setAge(age) {
+      if(age) this.age = age;
+    },
+    checkForm() {
+      // fill marketingAnswers list
       for (let q of this.questions) {
         if (q.answer) {
           this.marketingAnswers.push({
             questionId: q.questionId,
             answerContent: q.answer
           });
+        } else {
+          this.errorMsg = 'You must fill all answers!';
+          this.marketingAnswers = [];
+          return;
         }
       }
+      this.formStep = 1;
+    },
+    submitForm() {
+      if(this.submitted) {
+        this.errorMsg = 'You have already submitted!';
+        return;
+      }
       if(this.statisticalQuestions) {
-        for (let s of this.statisticalQuestions) {
-          if (s.answer) {
-            this.statisticalAnswers.push(s.answer);
-          }
-        }
+        this.statisticalAnswers.push(this.age);
+        this.statisticalAnswers.push(this.ex_select);
+        this.statisticalAnswers.push(this.g_select);
       }
       console.log(this.marketingAnswers);
       axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/newAnswers`, {
