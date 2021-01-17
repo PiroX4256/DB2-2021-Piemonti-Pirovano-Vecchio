@@ -76,7 +76,7 @@ public class QuestionnaireController {
             for(Integer statisticalAnswer: answersDTO.getStatisticalAnswer()) {
                 if(statisticalAnswer != 0) {
                     int answerContent = statisticalAnswer.intValue();
-                    questionnaireService.createStatisticalAnswer(user, statisticalQuestionIterator.next(), answerContent);
+                    questionnaireService.createStatisticalAnswer(user, statisticalQuestionIterator.next(), answerContent, questionnaire);
                 }
             }
         }

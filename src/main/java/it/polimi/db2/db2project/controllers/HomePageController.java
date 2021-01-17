@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/home")
@@ -38,17 +39,11 @@ public class HomePageController {
         ProductDTO productDTO = new ProductDTO(questionnaire.getProductName(), questionnaire.getProductImage(), questionnaire.getDate());
         List<MarketingQuestion> marketingQuestionList = questionnaire.getMarketingQuestions();
         List<MarketingQuestionDTO> marketingQuestionDTOList = new ArrayList<>();
-        for(MarketingQuestion question : marketingQuestionList) {
-            marketingQuestionDTOList.add(new MarketingQuestionDTO(question.getQuestionContent(), question.getId()));
-        }
-
+        marketingQuestionList.forEach(n -> marketingQuestionDTOList.add(new MarketingQuestionDTO(n.getQuestionContent(), n.getId())));
         List<StatisticalQuestion> statisticalQuestionList = statisticalQuestionService.findAll();
         List<String> statisticalQuestions = new ArrayList<>();
-        for(StatisticalQuestion question : statisticalQuestionList) {
-            statisticalQuestions.add(question.getQuestionContent());
-        }
-        HomePageDTO homePage = new HomePageDTO(productDTO, marketingQuestionDTOList, statisticalQuestions);
-        return ResponseEntity.ok(homePage);
+        statisticalQuestionList.forEach(n -> statisticalQuestions.add(n.getQuestionContent()));
+        return ResponseEntity.ok(new HomePageDTO(productDTO, marketingQuestionDTOList, statisticalQuestions));
     }
 
     @GetMapping("/getReviews")
@@ -58,8 +53,7 @@ public class HomePageController {
         for(MarketingQuestion question : questionList) {
             List<MarketingAnswer> answers = question.getMarketingAnswer();
             if(answers != null) {
-                ReviewsDTO reviewsDTO = new ReviewsDTO(question, answers);
-                reviewsDTOList.add(reviewsDTO);
+                reviewsDTOList.add(new ReviewsDTO(question, answers));
             }
         }
         if(reviewsDTOList.isEmpty()) {

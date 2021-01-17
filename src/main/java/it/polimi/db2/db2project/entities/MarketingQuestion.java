@@ -12,6 +12,7 @@ public class MarketingQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(nullable = false)
     private String questionContent;
 
     @OneToMany(mappedBy = "marketingQuestion", cascade = CascadeType.ALL, orphanRemoval = true)

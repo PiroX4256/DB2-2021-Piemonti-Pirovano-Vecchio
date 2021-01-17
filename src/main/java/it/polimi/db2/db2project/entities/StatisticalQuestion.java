@@ -15,10 +15,6 @@ public class StatisticalQuestion {
     @OneToMany(mappedBy = "statisticalQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<StatisticalAnswer> statisticalAnswers;
 
-    @ManyToOne
-    @JoinColumn
-    private Questionnaire questionnaire;
-
     protected StatisticalQuestion() {}
 
     public StatisticalQuestion(String questionContent) {
@@ -51,14 +47,6 @@ public class StatisticalQuestion {
 
     public void setStatisticalAnswers(List<StatisticalAnswer> statisticalAnswers) {
         this.statisticalAnswers = statisticalAnswers;
-    }
-
-    public Questionnaire getQuestionnaire() {
-        return questionnaire;
-    }
-
-    public void setQuestionnaire(Questionnaire questionnaire) {
-        this.questionnaire = questionnaire;
     }
 
     public void addStatisticalAnswer(StatisticalAnswer statisticalAnswer) {

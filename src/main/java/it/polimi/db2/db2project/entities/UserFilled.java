@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "UserFilled.findByStatus", query = "SELECT u FROM UserFilled u WHERE u.status = ?1 AND u.questionnaire = ?2")})
 public class UserFilled {
 
     @EmbeddedId
