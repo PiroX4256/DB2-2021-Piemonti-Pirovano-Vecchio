@@ -38,8 +38,9 @@ public class AdminController {
 
     @GetMapping("/getUsersList")
     public ResponseEntity<?> getUsersListFromQuestionnaire(@RequestParam Long questionnaireId) {
-        List<UserFilled> submittedUsers = questionnaireService.findUsersByStatus(1 , questionnaireId);
-        List<UserFilled> cancelledUsers = questionnaireService.findUsersByStatus(0, questionnaireId);
+        Questionnaire questionnaire = questionnaireService.findById(questionnaireId);
+        List<UserFilled> submittedUsers = questionnaireService.findUsersByStatus(Status.SUBMITTED ,questionnaire );
+        List<UserFilled> cancelledUsers = questionnaireService.findUsersByStatus(Status.CANCELLED, questionnaire);
         List<String> submittedUsersString = new ArrayList<>();
         List<String> cancelledUsersString = new ArrayList<>();
         submittedUsers.forEach(n -> submittedUsersString.add(n.getUser().getUsername()));

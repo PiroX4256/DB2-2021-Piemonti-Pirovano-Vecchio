@@ -71,11 +71,11 @@ public class QuestionnaireService {
         return em.createNamedQuery("Questionnaire.findQuestionnaireById", Questionnaire.class).setParameter(1, id).getSingleResult();
     }
 
-    public List<UserFilled> findUsersByStatus(int status, Long questionnaireId) {
-        return em.createNamedQuery("UserFilled.findByStatus", UserFilled.class).setParameter(1, status).setParameter(2, questionnaireId).getResultList();
+    public List<UserFilled> findUsersByStatus(Status status, Questionnaire questionnaire) {
+        return em.createNamedQuery("UserFilled.findByStatus", UserFilled.class).setParameter(1, status).setParameter(2, questionnaire).getResultList();
     }
 
-    public List<UserFilled> findUsersFilledQuestionnaire(Long questionnaireId) {
-        return em.createNamedQuery("UserFilled.findByQuestionnaireId", UserFilled.class).setParameter(1, questionnaireId).getResultList();
+    public List<UserFilled> findUsersFilledQuestionnaire(Questionnaire questionnaire) {
+        return em.createNamedQuery("UserFilled.findByQuestionnaireId", UserFilled.class).setParameter(1, questionnaire).getResultList();
     }
 }

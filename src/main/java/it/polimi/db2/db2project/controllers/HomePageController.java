@@ -59,7 +59,7 @@ public class HomePageController {
     @GetMapping("/getLeaderboard")
     public ResponseEntity<?> getLeaderboard() {
         Questionnaire questionnaire = questionnaireService.findByDate(new Date());
-        List<UserFilled> userList = questionnaireService.findUsersFilledQuestionnaire(questionnaire.getId());
+        List<UserFilled> userList = questionnaireService.findUsersFilledQuestionnaire(questionnaire);
         List<UserLeaderboardDTO> userLeaderboardDTOS = new ArrayList<>();
         userList.forEach(n -> userLeaderboardDTOS.add(new UserLeaderboardDTO(n.getUser().getUsername(), n.getUser().getScore())));
         return ResponseEntity.ok(userLeaderboardDTOS);
