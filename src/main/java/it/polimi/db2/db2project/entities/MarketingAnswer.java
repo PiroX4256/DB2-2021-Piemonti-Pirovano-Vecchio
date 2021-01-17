@@ -17,7 +17,7 @@ public class MarketingAnswer {
     @ManyToOne
     @JsonBackReference
     private MarketingQuestion marketingQuestion;
-    @NotNull
+    @Column(nullable = false)
     private String answer;
 
     public MarketingAnswer(User user, MarketingQuestion marketingQuestion, String answer) {

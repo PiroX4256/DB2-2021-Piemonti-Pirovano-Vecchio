@@ -1,5 +1,6 @@
 package it.polimi.db2.db2project.entities;
 
+import com.sun.istack.NotNull;
 import it.polimi.db2.db2project.model.Status;
 
 import javax.persistence.*;
@@ -17,11 +18,13 @@ public class UserFilled {
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
 
     @ManyToOne
     @MapsId("questionnaireId")
     @JoinColumn(name = "questionnaire_id")
+    @NotNull
     private Questionnaire questionnaire;
 
     private Status status;

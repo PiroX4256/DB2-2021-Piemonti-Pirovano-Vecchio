@@ -18,6 +18,7 @@ public class StatisticalQuestionService {
         private EntityManager em;
 
         public List<StatisticalQuestion> findAll() {
-            return em.createNamedQuery("StatisticalQuestion.findAll", StatisticalQuestion.class).getResultList();
+            List<StatisticalQuestion> questionList = em.createNamedQuery("StatisticalQuestion.findAll", StatisticalQuestion.class).getResultList();
+            return questionList;
         }
 }

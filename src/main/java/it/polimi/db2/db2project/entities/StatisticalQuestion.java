@@ -1,5 +1,7 @@
 package it.polimi.db2.db2project.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class StatisticalQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(nullable = false)
     private String questionContent;
 
     @OneToMany(mappedBy = "statisticalQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
