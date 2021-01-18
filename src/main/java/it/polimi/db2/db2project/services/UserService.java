@@ -76,7 +76,6 @@ public class UserService {
     }
 
     public String signin(String username, String password) {
-        System.out.println("KEK");
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             return jwtTokenProvider.createToken(username);
