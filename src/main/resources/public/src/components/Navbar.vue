@@ -2,7 +2,7 @@
   <div>
 
     <ul class="nav navbar-nav flex-row float-right">
-      <li class="nav-item active mr-5">
+      <li class="nav-item active mr-5" v-if="getBearer">
         <a class="nav-link mr-auto">{{ getUsername }}, your score is: {{ score }}</a>
       </li>
       <li v-if="!getBearer && !getAdminBearer" class="nav-item">
@@ -40,7 +40,7 @@ export default {
         'getUsername'
     ]),
   },
-  created() {
+  updated() {
     axios.get(`${process.env.VUE_APP_API_ROOT}/auth/getUser`, {
       params: {
         username: this.getUsername
