@@ -1,7 +1,6 @@
 package it.polimi.db2.db2project.services;
 
 import it.polimi.db2.db2project.entities.OffensiveWords;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
