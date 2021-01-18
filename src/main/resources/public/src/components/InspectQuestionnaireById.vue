@@ -23,6 +23,9 @@ export default {
     axios.get(`${process.env.VUE_APP_API_ROOT}/admin/getUsersList`, {
       params: {
         questionnaireId: this.id
+      },
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
       }
     }).then(res => {
       this.usersSubmitted = res.data.submittedUsers;
