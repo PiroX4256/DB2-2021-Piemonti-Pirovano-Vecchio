@@ -3,7 +3,6 @@ package it.polimi.db2.db2project.services;
 import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.entities.User;
 import it.polimi.db2.db2project.entities.UserFilled;
-import it.polimi.db2.db2project.entities.UserFilledKey;
 import it.polimi.db2.db2project.model.Status;
 import it.polimi.db2.db2project.model.UserDTO;
 import it.polimi.db2.db2project.security.JwtTokenProvider;
@@ -11,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,13 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service(value = "userService")
 @Stateless
