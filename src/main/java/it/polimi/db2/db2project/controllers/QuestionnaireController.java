@@ -57,7 +57,7 @@ public class QuestionnaireController {
     }
 
     @PostMapping("/newAnswers")
-    @PreAuthorize(("hasRole('ROLE_USER')"))
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> fillQuestionnaire(@RequestBody AnswersDTO answersDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.search(authentication.getName());
