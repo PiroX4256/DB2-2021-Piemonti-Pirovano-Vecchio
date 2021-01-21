@@ -1,9 +1,11 @@
 <template>
   <div>
-
     <ul class="nav navbar-nav flex-row float-right">
       <li class="nav-item active mr-5" v-if="getBearer">
         <a class="nav-link mr-auto">{{ getUsername }}, your score is: {{ score }}</a>
+      </li>
+      <li class="nav-item" v-if="getBearer">
+        <a class="btn btn-primary" style="margin-right: 10px" href="/leaderboard">Leaderboard</a>
       </li>
       <li v-if="!getBearer && !getAdminBearer" class="nav-item">
         <router-link class="nav-link pr-3" to="/login">Sign in</router-link>
