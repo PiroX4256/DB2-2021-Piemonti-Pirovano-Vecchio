@@ -11,6 +11,7 @@ import AdminDeleteQuestionnaire from "../components/AdminDeleteQuestionnaire";
 import QuestionnairePage from "../components/QuestionnairePage";
 import InspectQuestionnaireById from "../components/InspectQuestionnaireById";
 import Scoreboard from "@/components/Scoreboard";
+import GreetingsPage from "../components/GreetingsPage";
 
 Vue.use(VueRouter);
 
@@ -25,7 +26,8 @@ const routes = [
     { path: '/inspect/:id', name: 'AdminInspectId', component: InspectQuestionnaireById },
     { path: '/adminDeleteQuestionnaire', name: 'AdminDeleteQuestionnaire', component: AdminDeleteQuestionnaire },
     { path: '/fill/:date', name:'FillQuestionnaire', component: QuestionnairePage, props: true },
-    { path: '/leaderboard', name: 'Leaderboard', component: Scoreboard }
+    { path: '/leaderboard', name: 'Leaderboard', component: Scoreboard },
+    { path: '/greetings', name: 'GreetingsPage', component: GreetingsPage }
 
 ]
 
