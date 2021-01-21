@@ -52,7 +52,7 @@ export default {
             this.setBearer(res.data);
             this.setUsername(this.username);
           } else {
-            this.errmsg = 'Wrong user/password combination.'
+            this.errmsg = 'Wrong user/password combination, or the account is blocked.'
           }
         }).catch((res) => {
           this.errmsg = `Error: ${res.status}`
