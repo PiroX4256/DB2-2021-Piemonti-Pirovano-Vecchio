@@ -38,12 +38,14 @@
   <div class="alert alert-danger mr-2" role="alert" v-if="errorMsg" style="padding-top: 5px"> {{ errorMsg }} </div>
   <div class="alert alert-success mr-2" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
   <div>
+    <!-- Success modal -- deprecated --
     <b-modal ref="modal-s" title="Operation successful" >
       <p class="my-4">Success!</p>
       <template #modal-footer>
         <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
       </template>
     </b-modal>
+    -->
     <b-modal ref="modal-e" title="Error">
       <p class="my-4">You have already submitted this questionnaire!</p>
       <template #modal-footer>
@@ -58,6 +60,7 @@
 import axios from "axios";
 import {mapGetters} from "vuex";
 import SpinButtonCustom from "./SpinButtonCustom";
+import router from "../router";
 
 export default {
   name: "QuestionnairePage",
@@ -145,10 +148,11 @@ export default {
             }
           }).then(res => {
         if(res.status === 200) {
-          console.log(JSON.stringify(res.data));
+          /*console.log(JSON.stringify(res.data));
           this.successMsg = 'Submit successful!';
           this.submitted = true;
-          this.$refs['modal-s'].show();
+          this.$refs['modal-s'].show();*/
+          router.push("/greetings");
         } else {
           this.errorMsg = 'Unexpected error! Retry later.';
           this.$refs['modal-e'].show();
