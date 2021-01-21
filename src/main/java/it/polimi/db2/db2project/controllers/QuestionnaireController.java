@@ -69,6 +69,7 @@ public class QuestionnaireController {
                 for (String word : marketingAnswer.getAnswerContent().split(" ")) {
                     if (offensiveWords.stream().filter(n -> n.getWord().equalsIgnoreCase(word)).count() > 0) {
                         userService.banUser(user);
+                        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
                         return ResponseEntity.unprocessableEntity().body("There are some offensive words in your answer!");
                     }
                 }
