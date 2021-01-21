@@ -129,6 +129,7 @@ export default {
     },
     checkForm() {
       // fill marketingAnswers list
+      this.errorMsg = '';
       this.marketingAnswers = [];
       for (let q of this.questions) {
         if (q.answer) {
