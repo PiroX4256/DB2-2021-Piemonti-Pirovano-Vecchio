@@ -11,7 +11,7 @@ public class MarketingAnswer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    @OneToOne
+    @ManyToOne
     private User user;
     @NotNull
     @ManyToOne
