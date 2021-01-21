@@ -5,7 +5,7 @@
 body {
     background: #2554FF !important;
     min-height: 100vh;
-    display: flex;
+    /*display: flex;*/
     font-weight: 400;
 }
 
@@ -24,7 +24,7 @@ html,
 }
 
 .vertical-center {
-    display: flex;
+    /*display: flex;*/
     text-align: left;
     justify-content: center;
     flex-direction: column;
