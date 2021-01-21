@@ -10,8 +10,27 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+import axios from "axios";
+import router from "../router";
+
 export default {
-  name: "GreetingsPage"
+  name: "GreetingsPage",
+  created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/userPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getBearer}`
+      }
+    }).catch(() => {
+      this.clearBearer();
+      router.push('/');
+    });
+  },
+  methods: {
+    ...mapActions('veztore', [
+      'clearBearer',
+    ]),
+  }
 }
 </script>
 

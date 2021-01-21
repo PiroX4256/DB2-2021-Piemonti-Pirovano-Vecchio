@@ -105,6 +105,14 @@ export default {
     ])
   },
   created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/userPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getBearer}`
+      }
+    }).catch(() => {
+      this.clearBearer();
+      router.push('/');
+    });
     this.questions = this.$route.params.questions;
     this.productName = this.$route.params.productName;
     this.productImage = this.$route.params.productImage;
@@ -146,7 +154,6 @@ export default {
         this.statisticalAnswers.push(this.ex_select);
         this.statisticalAnswers.push(this.g_select);
       }
-      console.log(this.marketingAnswers);
       axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/newAnswers`, {
             marketingAnswer: this.marketingAnswers,
             statisticalAnswer: this.statisticalAnswers,
@@ -168,7 +175,6 @@ export default {
           this.$refs['modal-e'].show();
         }
       }).catch(err => {
-        console.log(err);
         if(err.response.status === 422) {
           this.errorMsg = 'You have been banned for writing an offensive word.';
           this.$refs['modal-b'].show();
@@ -197,7 +203,6 @@ export default {
           }
         }).then(res => {
         if(res.status === 200) {
-          console.log(JSON.stringify(res.data));
           this.successMsg = 'Cancel successful!';
           this.submitted = true;
           this.$refs['modal-s'].show();

@@ -45,8 +45,9 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import axios from "axios";
+import router from "../router";
 
 export default {
   name: "InspectQuestionnaireById",
@@ -60,6 +61,14 @@ export default {
     }
   },
   created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/adminPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
+      }
+    }).catch(() => {
+      this.clearAdminBearer();
+      router.push('/');
+    });
     this.id = this.$route.params.id;
     axios.get(`${process.env.VUE_APP_API_ROOT}/admin/getUsersList`, {
       params: {
@@ -88,6 +97,11 @@ export default {
       'getAdminBearer',
     ])
   },
+  methods: {
+    ...mapActions('veztore', [
+      'clearAdminBearer',
+    ]),
+  }
 }
 </script>
 

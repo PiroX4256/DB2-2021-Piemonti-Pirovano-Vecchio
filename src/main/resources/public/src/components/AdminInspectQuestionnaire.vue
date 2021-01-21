@@ -19,7 +19,7 @@
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import router from "../router";
 
 export default {
@@ -57,6 +57,14 @@ export default {
     ])
   },
   async created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/adminPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
+      }
+    }).catch(() => {
+      this.clearAdminBearer();
+      router.push('/');
+    });
     await axios.get(`${process.env.VUE_APP_API_ROOT}/questionnaire/getAllQuestionnaires`, {
       headers: {
         'Authorization': `Bearer ${this.getAdminBearer}`
@@ -66,6 +74,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions('veztore', [
+      'clearAdminBearer',
+    ]),
     selectQuestionnaire(id) {
       this.selected = id.value;
       router.push({ name: 'AdminInspectId', params: { id: this.selected.toString() } });
