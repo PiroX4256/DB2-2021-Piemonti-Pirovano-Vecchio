@@ -31,6 +31,7 @@
       <b-form-select id="gender" v-model="g_select" :options="g_options"></b-form-select>
     </b-form-group>
 
+    <button type="submit" class="btn btn-primary mr-2" @click="formStep=0">Previous</button>
     <button type="button" class="btn btn-danger mr-2" @click="cancelForm">Cancel</button>
     <button type="submit" class="btn btn-success">Submit</button>
   </form>
@@ -110,6 +111,7 @@ export default {
     },
     checkForm() {
       // fill marketingAnswers list
+      this.marketingAnswers = [];
       for (let q of this.questions) {
         if (q.answer) {
           this.marketingAnswers.push({
