@@ -40,17 +40,11 @@ export default {
         'getUsername'
     ]),
   },
+  created() {
+    this.updateScore();
+  },
   updated() {
-    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/getUser`, {
-      params: {
-        username: this.getUsername
-      },
-      headers: {
-        'Authorization': `Bearer ${this.getBearer}`
-      }
-    }).then(res => {
-      if(res.status === 200) this.score = res.data.score;
-    });
+    this.updateScore();
   },
   methods: {
     ...mapActions('veztore', [
@@ -68,6 +62,18 @@ export default {
         this.clearAdminBearer();
         router.push('/admin');
       }
+    },
+    updateScore() {
+      axios.get(`${process.env.VUE_APP_API_ROOT}/auth/getUser`, {
+        params: {
+          username: this.getUsername
+        },
+        headers: {
+          'Authorization': `Bearer ${this.getBearer}`
+        }
+      }).then(res => {
+        if(res.status === 200) this.score = res.data.score;
+      });
     }
   }
 }
