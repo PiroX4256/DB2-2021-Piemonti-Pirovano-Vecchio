@@ -44,6 +44,7 @@ export default {
   methods: {
     ...mapActions('veztore', [
         'setBearer',
+        'setUsername',
     ]),
     submitForm() {
       if(this.email && this.password && this.username) {
@@ -54,6 +55,7 @@ export default {
         }).then((res) => {
           if(res.status === 200 && res.data) {
             this.setBearer(res.data);
+            this.setUsername(this.username);
           }
         });
       }

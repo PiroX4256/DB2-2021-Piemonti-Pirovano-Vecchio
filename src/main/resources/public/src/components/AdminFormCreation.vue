@@ -54,7 +54,7 @@
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import router from "../router";
 
 export default {
@@ -69,12 +69,25 @@ export default {
       newQuestion: '',
     }
   },
+  created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/adminPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
+      }
+    }).catch(() => {
+      this.clearAdminBearer();
+      router.push('/');
+    });
+  },
   computed: {
     ...mapGetters('veztore', [
       'getAdminBearer',
     ])
   },
   methods: {
+    ...mapActions('veztore', [
+      'clearAdminBearer',
+    ]),
     appendQuestion() {
       if(!this.questions.includes(this.newQuestion) && this.newQuestion) {
         this.questions.push(this.newQuestion);
@@ -94,8 +107,7 @@ export default {
           'Authorization': `Bearer ${this.getAdminBearer}`
         }
       }
-    ).then(res => {
-        console.log(`${res.status}:: ${res.data}`);
+    ).then(() => {
         this.$refs['modal-s'].show();
       })
       .catch(res => {

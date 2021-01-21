@@ -66,6 +66,7 @@ export default {
       }
     },
     updateScore() {
+      if(!this.getUsername) return;
       axios.get(`${process.env.VUE_APP_API_ROOT}/auth/getUser`, {
         params: {
           username: this.getUsername

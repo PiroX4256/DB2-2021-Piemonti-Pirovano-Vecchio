@@ -16,7 +16,8 @@
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
+import router from "../router";
 
 export default {
   name: "Scoreboard",
@@ -45,6 +46,14 @@ export default {
     ])
   },
   created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/userPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getBearer}`
+      }
+    }).catch(() => {
+      this.clearBearer();
+      router.push('/');
+    });
     axios.get(`${process.env.VUE_APP_API_ROOT}/home/getLeaderboard`, {
       headers: {
         'Authorization': `Bearer ${this.getBearer}`
@@ -53,7 +62,11 @@ export default {
       this.users = res.data;
     });
   },
-  methods: {}
+  methods: {
+    ...mapActions('veztore', [
+      'clearBearer',
+    ]),
+  }
 }
 </script>
 

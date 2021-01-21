@@ -41,8 +41,9 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import axios from "axios";
+import router from "../router";
 
 export default {
   name: "AdminDeleteQuestionnaire",
@@ -80,6 +81,14 @@ export default {
     ])
   },
   async created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/adminPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
+      }
+    }).catch(() => {
+      this.clearAdminBearer();
+      router.push('/');
+    });
     await axios.get(`${process.env.VUE_APP_API_ROOT}/questionnaire/getAllQuestionnaires`, {
       headers: {
         'Authorization': `Bearer ${this.getAdminBearer}`
@@ -89,6 +98,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions('veztore', [
+      'clearAdminBearer',
+    ]),
     selectQuestionnaire(id) {
       this.$refs['modal-confirm'].show();
       this.selected = id.value;

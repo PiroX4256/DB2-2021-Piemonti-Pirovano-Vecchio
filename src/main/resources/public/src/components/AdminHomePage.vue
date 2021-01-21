@@ -11,6 +11,7 @@
 <script>
 import router from "../router";
 import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -29,6 +30,14 @@ export default {
     if(!this.getAdminBearer) {
       router.push("/admin");
     }
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/adminPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAdminBearer}`
+      }
+    }).catch(() => {
+      this.clearAdminBearer();
+      router.push('/');
+    });
   }
 }
 </script>

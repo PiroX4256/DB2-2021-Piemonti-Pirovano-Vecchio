@@ -52,13 +52,19 @@
         <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
       </template>
     </b-modal>
+    <b-modal ref="modal-b" title="Banned">
+      <p class="my-4">You have been banned for writing an offensive word.</p>
+      <template #modal-footer>
+        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/login">Ok</router-link>
+      </template>
+    </b-modal>
   </div>
 </div>
 </template>
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import SpinButtonCustom from "./SpinButtonCustom";
 import router from "../router";
 
@@ -99,6 +105,14 @@ export default {
     ])
   },
   created() {
+    axios.get(`${process.env.VUE_APP_API_ROOT}/auth/userPing`, {
+      headers: {
+        'Authorization': `Bearer ${this.getBearer}`
+      }
+    }).catch(() => {
+      this.clearBearer();
+      router.push('/');
+    });
     this.questions = this.$route.params.questions;
     this.productName = this.$route.params.productName;
     this.productImage = this.$route.params.productImage;
@@ -106,11 +120,16 @@ export default {
     this.statisticalQuestions = this.$route.params.statisticalQuestions
   },
   methods: {
+    ...mapActions('veztore', [
+      'clearBearer',
+      'clearUsername',
+    ]),
     setAge(age) {
       if(age) this.age = age;
     },
     checkForm() {
       // fill marketingAnswers list
+      this.errorMsg = '';
       this.marketingAnswers = [];
       for (let q of this.questions) {
         if (q.answer) {
@@ -136,7 +155,6 @@ export default {
         this.statisticalAnswers.push(this.ex_select);
         this.statisticalAnswers.push(this.g_select);
       }
-      console.log(this.marketingAnswers);
       axios.post(`${process.env.VUE_APP_API_ROOT}/questionnaire/newAnswers`, {
             marketingAnswer: this.marketingAnswers,
             statisticalAnswer: this.statisticalAnswers,
@@ -148,7 +166,7 @@ export default {
             }
           }).then(res => {
         if(res.status === 200) {
-          /*console.log(JSON.stringify(res.data));
+          /*
           this.successMsg = 'Submit successful!';
           this.submitted = true;
           this.$refs['modal-s'].show();*/
@@ -157,9 +175,16 @@ export default {
           this.errorMsg = 'Unexpected error! Retry later.';
           this.$refs['modal-e'].show();
         }
-      }).catch(res => {
-        this.errorMsg = `Server error! Retry later. Error code: ${res.status}`;
-        this.$refs['modal-e'].show();
+      }).catch(err => {
+        if(err.response.status === 422) {
+          this.errorMsg = 'You have been banned for writing an offensive word.';
+          this.$refs['modal-b'].show();
+          this.clearUsername();
+          this.clearBearer();
+        } else {
+          this.errorMsg = `Server error! Retry later. Error code: ${err.response.status}`;
+          this.$refs['modal-e'].show();
+        }
       });
     },
     cancelForm() {
@@ -179,7 +204,6 @@ export default {
           }
         }).then(res => {
         if(res.status === 200) {
-          console.log(JSON.stringify(res.data));
           this.successMsg = 'Cancel successful!';
           this.submitted = true;
           this.$refs['modal-s'].show();
