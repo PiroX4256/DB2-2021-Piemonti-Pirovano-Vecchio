@@ -52,13 +52,19 @@
         <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
       </template>
     </b-modal>
+    <b-modal ref="modal-b" title="Banned">
+      <p class="my-4">You have been banned for writing an offensive word.</p>
+      <template #modal-footer>
+        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/login">Ok</router-link>
+      </template>
+    </b-modal>
   </div>
 </div>
 </template>
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import SpinButtonCustom from "./SpinButtonCustom";
 import router from "../router";
 
@@ -106,6 +112,10 @@ export default {
     this.statisticalQuestions = this.$route.params.statisticalQuestions
   },
   methods: {
+    ...mapActions('veztore', [
+      'clearBearer',
+      'clearUsername',
+    ]),
     setAge(age) {
       if(age) this.age = age;
     },
@@ -157,9 +167,17 @@ export default {
           this.errorMsg = 'Unexpected error! Retry later.';
           this.$refs['modal-e'].show();
         }
-      }).catch(res => {
-        this.errorMsg = `Server error! Retry later. Error code: ${res.status}`;
-        this.$refs['modal-e'].show();
+      }).catch(err => {
+        console.log(err);
+        if(err.response.status === 422) {
+          this.errorMsg = 'You have been banned for writing an offensive word.';
+          this.$refs['modal-b'].show();
+          this.clearUsername();
+          this.clearBearer();
+        } else {
+          this.errorMsg = `Server error! Retry later. Error code: ${err.response.status}`;
+          this.$refs['modal-e'].show();
+        }
       });
     },
     cancelForm() {
