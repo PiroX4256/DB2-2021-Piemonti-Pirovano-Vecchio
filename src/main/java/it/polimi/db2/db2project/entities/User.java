@@ -29,8 +29,11 @@ public class User {
     private boolean active;
     private int score;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<UserFilled> userFilled = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<StatisticalAnswer> statisticalAnswer;
 
     public User() {}
 

@@ -28,6 +28,9 @@ public class Questionnaire {
     @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MarketingQuestion> marketingQuestions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL)
+    private List<StatisticalAnswer> statisticalAnswers;
+
     protected Questionnaire() {}
 
     public Questionnaire(String productName, String productImage, Date date) {

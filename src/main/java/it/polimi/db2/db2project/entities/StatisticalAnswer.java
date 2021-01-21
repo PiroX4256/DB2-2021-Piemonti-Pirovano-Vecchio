@@ -10,13 +10,13 @@ public class StatisticalAnswer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
     private User user;
     @NotNull
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Questionnaire questionnaire;
 

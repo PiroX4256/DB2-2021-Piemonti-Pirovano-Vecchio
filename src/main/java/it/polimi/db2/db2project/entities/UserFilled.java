@@ -14,13 +14,13 @@ public class UserFilled {
     @EmbeddedId
     UserFilledKey id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @MapsId("questionnaireId")
     @JoinColumn(name = "questionnaire_id")
     @NotNull

@@ -30,8 +30,6 @@ public class QuestionnaireService {
     public void deleteQuestionnaire(Long questionnaireId) {
         Questionnaire questionnaire = this.findById(questionnaireId);
         em.remove(questionnaire);
-        em.flush();
-        em.clear();
     }
 
     @Transactional
