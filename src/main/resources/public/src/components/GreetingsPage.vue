@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import axios from "axios";
 import router from "../router";
 
@@ -25,6 +25,11 @@ export default {
       this.clearBearer();
       router.push('/');
     });
+  },
+  computed: {
+    ...mapGetters('veztore', [
+      'getBearer',
+    ])
   },
   methods: {
     ...mapActions('veztore', [
