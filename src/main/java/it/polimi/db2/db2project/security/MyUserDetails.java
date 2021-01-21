@@ -44,7 +44,7 @@ public class MyUserDetails implements UserDetailsService {
                     .password(user.getPassword())//
                     .authorities(Role.ROLE_USER)
                     .accountExpired(false)//
-                    .accountLocked(false)//
+                    .accountLocked(!user.isActive())//
                     .credentialsExpired(false)//
                     .disabled(false)//
                     .build();

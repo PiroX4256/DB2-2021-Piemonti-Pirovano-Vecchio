@@ -85,4 +85,11 @@ public class UserService {
         User user = em.createNamedQuery("User.getByUsername", User.class).setParameter(1, username).getSingleResult();
         return user;
     }
+
+    @Transactional
+    public boolean banUser(User user) {
+        user.setActive(false);
+        em.persist(user);
+        return true;
+    }
 }

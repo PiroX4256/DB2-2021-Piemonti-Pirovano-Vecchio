@@ -51,6 +51,15 @@ public class UserController {
         return ResponseEntity.ok(userService.search(username));
     }
 
+    @GetMapping("/userPing")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> userPing() {
+        return ResponseEntity.ok().build();
+    }
 
-
+    @GetMapping("/adminPing")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> adminPing() {
+        return ResponseEntity.ok().build();
+    }
 }
