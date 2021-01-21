@@ -12,6 +12,7 @@
       <textarea v-model="q.answer" type="text" class="form-control" :id="q.questionId" placeholder="Enter your answer"></textarea>
     </div>
 
+    <button type="button" class="btn btn-danger mr-2" @click="cancelForm">Cancel</button>
     <button type="submit" class="btn btn-success">Next</button>
   </form>
 
@@ -38,18 +39,17 @@
   <div class="alert alert-danger mr-2" role="alert" v-if="errorMsg" style="padding-top: 5px"> {{ errorMsg }} </div>
   <div class="alert alert-success mr-2" role="alert" v-if="successMsg" style="padding-top: 5px"> {{ successMsg }} </div>
   <div>
-    <!-- Success modal -- deprecated --
+
     <b-modal ref="modal-s" title="Operation successful" >
       <p class="my-4">Success!</p>
       <template #modal-footer>
-        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
+        <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='/'">Back</button>
       </template>
     </b-modal>
-    -->
     <b-modal ref="modal-e" title="Error">
       <p class="my-4">You have already submitted this questionnaire!</p>
       <template #modal-footer>
-        <router-link tag="button" type="button" class="btn btn-primary btn-lg btn-block" to="/">Back</router-link>
+        <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='/'">Back</button>
       </template>
     </b-modal>
     <b-modal ref="modal-b" title="Banned">
@@ -170,7 +170,7 @@ export default {
           this.successMsg = 'Submit successful!';
           this.submitted = true;
           this.$refs['modal-s'].show();*/
-          router.push("/greetings");
+          window.location.href("/greetings");
         } else {
           this.errorMsg = 'Unexpected error! Retry later.';
           this.$refs['modal-e'].show();
