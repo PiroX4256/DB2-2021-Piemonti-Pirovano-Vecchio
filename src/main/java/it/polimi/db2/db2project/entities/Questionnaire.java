@@ -22,7 +22,7 @@ public class Questionnaire {
     @Column(unique = true, nullable = false)
     private Date date;
 
-    @OneToMany(mappedBy = "questionnaire")
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserFilled> questionnaireCompiledBy = new ArrayList<>();
 
     @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL, orphanRemoval = true)

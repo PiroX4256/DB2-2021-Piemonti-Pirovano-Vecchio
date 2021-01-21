@@ -10,7 +10,7 @@ public class StatisticalAnswer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private User user;
     @NotNull
     @ManyToOne
