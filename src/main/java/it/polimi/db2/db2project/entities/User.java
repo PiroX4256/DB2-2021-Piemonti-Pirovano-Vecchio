@@ -29,7 +29,7 @@ public class User {
     private boolean active;
     private int score;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserFilled> userFilled = new ArrayList<>();
 
     public User() {}

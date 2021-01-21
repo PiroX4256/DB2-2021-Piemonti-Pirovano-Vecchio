@@ -13,7 +13,7 @@ public class StatisticalQuestion {
     @Column(nullable = false)
     private String questionContent;
 
-    @OneToMany(mappedBy = "statisticalQuestion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "statisticalQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StatisticalAnswer> statisticalAnswers;
 
     protected StatisticalQuestion() {}

@@ -19,7 +19,7 @@ public class MarketingQuestion {
     @JsonManagedReference
     private List<MarketingAnswer> marketingAnswer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonManagedReference
     private Questionnaire questionnaire;
