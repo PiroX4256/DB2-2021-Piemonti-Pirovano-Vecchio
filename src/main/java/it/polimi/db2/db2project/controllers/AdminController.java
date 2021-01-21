@@ -1,9 +1,11 @@
 package it.polimi.db2.db2project.controllers;
 
 
+import it.polimi.db2.db2project.entities.MarketingQuestion;
 import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.entities.UserFilled;
 import it.polimi.db2.db2project.model.QuestionnaireDTO;
+import it.polimi.db2.db2project.model.ReviewsDTO;
 import it.polimi.db2.db2project.model.Status;
 import it.polimi.db2.db2project.model.UserListDTO;
 import it.polimi.db2.db2project.services.QuestionnaireService;
@@ -48,5 +50,18 @@ public class AdminController {
         submittedUsers.forEach(n -> submittedUsersString.add(n.getUser().getUsername()));
         cancelledUsers.forEach(n -> cancelledUsersString.add(n.getUser().getUsername()));
         return ResponseEntity.ok(new UserListDTO(submittedUsersString, cancelledUsersString));
+    }
+
+    @GetMapping("/inspection")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> getReviewsFromQuestionnaire(@RequestParam Long questionnaireId) {
+        Questionnaire questionnaire = questionnaireService.findById(questionnaireId);
+        List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
+        List<MarketingQuestion> marketingQuestions = questionnaire.getMarketingQuestions();
+        marketingQuestions.forEach(n -> reviewsDTOList.add(new ReviewsDTO(n, n.getMarketingAnswer())));
+        if(reviewsDTOList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(reviewsDTOList);
     }
 }
