@@ -1,11 +1,9 @@
 package it.polimi.db2.db2project.controllers;
 
-import it.polimi.db2.db2project.entities.User;
 import it.polimi.db2.db2project.model.LoginUser;
 import it.polimi.db2.db2project.model.UserDTO;
 import it.polimi.db2.db2project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,6 +1,5 @@
 package it.polimi.db2.db2project.services;
 
-import it.polimi.db2.db2project.entities.MarketingQuestion;
 import it.polimi.db2.db2project.entities.StatisticalQuestion;
 import org.springframework.stereotype.Service;
 

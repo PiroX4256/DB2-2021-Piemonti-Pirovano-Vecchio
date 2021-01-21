@@ -20,6 +20,7 @@
 <script>
 import axios from "axios";
 import {mapGetters} from "vuex";
+import router from "../router";
 
 export default {
   name: "AdminInspectQuestionnaire",
@@ -67,6 +68,7 @@ export default {
   methods: {
     selectQuestionnaire(id) {
       this.selected = id.value;
+      router.push({ name: 'AdminInspectId', params: { id: this.selected.toString() } });
     },
   }
 }

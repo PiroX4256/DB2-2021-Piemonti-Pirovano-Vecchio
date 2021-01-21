@@ -6,7 +6,8 @@ export default {
     namespaced: true,
     state: {
         bearer: null,
-        adminBearer: null
+        adminBearer: null,
+        username: '',
     },
 
     getters: {
@@ -15,6 +16,9 @@ export default {
         },
         getAdminBearer(state) {
             return state.adminBearer;
+        },
+        getUsername(state) {
+            return state.username;
         }
     },
 
@@ -32,6 +36,12 @@ export default {
         },
         clearAdminBearer({ commit }) {
             commit('clearAdminBearer');
+        },
+        setUsername({ commit }, username) {
+            commit('setUsername', username);
+        },
+        clearUsername({ commit }) {
+            commit('clearUsername');
         }
     },
 
@@ -47,6 +57,12 @@ export default {
         },
         clearAdminBearer(state) {
             state.adminBearer = null;
+        },
+        setUsername(state, username) {
+            state.username = username;
+        },
+        clearUsername(state) {
+            state.username = '';
         }
     }
 }

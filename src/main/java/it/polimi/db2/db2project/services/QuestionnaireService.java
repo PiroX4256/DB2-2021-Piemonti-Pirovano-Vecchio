@@ -6,7 +6,6 @@ import it.polimi.db2.db2project.model.Status;
 import org.springframework.stereotype.Service;
 
 import javax.ejb.Stateless;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;

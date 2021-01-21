@@ -3,7 +3,6 @@ package it.polimi.db2.db2project.model;
 import it.polimi.db2.db2project.entities.MarketingAnswer;
 import it.polimi.db2.db2project.entities.MarketingQuestion;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class ReviewsDTO {

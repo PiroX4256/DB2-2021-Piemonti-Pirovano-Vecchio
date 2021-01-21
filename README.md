@@ -27,3 +27,24 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
 * **OffensiveWord**(<u>word</u>)
 * **Admin**(<u>id</u>, username, email, password)
 
+## Triggers Creation
+
+```
+use db;
+DELIMITER $$
+CREATE TRIGGER update_points AFTER INSERT ON marketing_answer
+FOR EACH ROW
+BEGIN
+    UPDATE user u SET u.score = u.score + 1 WHERE u.id=NEW.user_id;
+END$$
+delimiter ;
+```
+
+```use db;
+DELIMITER $$
+CREATE TRIGGER update_points_statistical AFTER INSERT ON statistical_answer
+FOR EACH ROW
+BEGIN
+UPDATE user u SET u.score = u.score + 2 WHERE u.id=NEW.user_id;
+END$$
+delimiter ;```

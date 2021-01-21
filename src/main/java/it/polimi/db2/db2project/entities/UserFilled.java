@@ -5,8 +5,6 @@ import com.sun.istack.NotNull;
 import it.polimi.db2.db2project.model.Status;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @NamedQueries({@NamedQuery(name = "UserFilled.findByStatus", query = "SELECT u FROM UserFilled u WHERE u.status = ?1 AND u.questionnaire = ?2"),

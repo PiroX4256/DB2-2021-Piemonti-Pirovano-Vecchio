@@ -1,10 +1,8 @@
 package it.polimi.db2.db2project.controllers;
 
 
-import it.polimi.db2.db2project.entities.MarketingQuestion;
 import it.polimi.db2.db2project.entities.Questionnaire;
 import it.polimi.db2.db2project.entities.UserFilled;
-import it.polimi.db2.db2project.model.MarketingQuestionDTO;
 import it.polimi.db2.db2project.model.QuestionnaireDTO;
 import it.polimi.db2.db2project.model.Status;
 import it.polimi.db2.db2project.model.UserListDTO;

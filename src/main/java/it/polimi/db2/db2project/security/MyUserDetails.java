@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.Date;
 
 @Service
 public class MyUserDetails implements UserDetailsService {
@@ -19,11 +21,14 @@ public class MyUserDetails implements UserDetailsService {
     private EntityManager em;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = null;
         Admin admin = null;
         try {
             user = em.createNamedQuery("User.getByUsername", User.class).setParameter(1, username).getSingleResult();
+            user.setLastLogin(new Date());
+            em.persist(user);
         } catch (NoResultException e) {
             //e.printStackTrace();
         }
