@@ -22,6 +22,7 @@ public class MarketingQuestion {
 
     @ManyToOne
     @JoinColumn
+    @JsonManagedReference
     private Questionnaire questionnaire;
 
     protected MarketingQuestion() {}

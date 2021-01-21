@@ -33,21 +33,25 @@ public class QuestionnaireController {
     private OffensiveWordService offensiveWordService;
 
     @GetMapping("/getQuestionnaireFromId")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<?> getQuestionnaireFromId(@RequestParam Long id){
         Questionnaire questionnaire = questionnaireService.findById(id);
         if (questionnaire == null) {
             return ResponseEntity.notFound().build();
         }
+
         return ResponseEntity.ok(questionnaire);
     }
 
     @GetMapping("/getQuestionnaireFromDate")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<?> getQuestionnaireFromDate() {
         Questionnaire questionnaire = questionnaireService.findByDate(new Date());
         return ResponseEntity.ok(questionnaire);
     }
 
     @PostMapping("/newAnswers")
+    @PreAuthorize(("hasRole('ROLE_USER')"))
     public ResponseEntity<?> fillQuestionnaire(@RequestBody AnswersDTO answersDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.search(authentication.getName());

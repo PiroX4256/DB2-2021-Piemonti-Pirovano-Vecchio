@@ -1,5 +1,6 @@
 package it.polimi.db2.db2project.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import it.polimi.db2.db2project.model.Status;
 
@@ -25,6 +26,7 @@ public class UserFilled {
     @MapsId("questionnaireId")
     @JoinColumn(name = "questionnaire_id")
     @NotNull
+    @JsonManagedReference
     private Questionnaire questionnaire;
 
     private Status status;

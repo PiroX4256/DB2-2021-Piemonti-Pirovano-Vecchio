@@ -11,6 +11,7 @@ import it.polimi.db2.db2project.model.UserListDTO;
 import it.polimi.db2.db2project.services.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class AdminController {
     QuestionnaireService questionnaireService;
 
     @PostMapping("/newQuestionnaire")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createMarketingQuestion(@RequestBody QuestionnaireDTO questionnaireDTO) {
         Questionnaire questionnaire = questionnaireService.createQuestionnaire(questionnaireDTO.getProductDTO());
         questionnaireDTO.getMarketingQuestions().forEach(n -> questionnaireService.createMarketingQuestion(questionnaire, n));
@@ -31,12 +33,14 @@ public class AdminController {
     }
 
     @GetMapping("/deleteQuestionnaire")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteQuestionnaire(@RequestParam Long questionnaireId) {
         questionnaireService.deleteQuestionnaire(questionnaireId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/getUsersList")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getUsersListFromQuestionnaire(@RequestParam Long questionnaireId) {
         Questionnaire questionnaire = questionnaireService.findById(questionnaireId);
         List<UserFilled> submittedUsers = questionnaireService.findUsersByStatus(Status.SUBMITTED ,questionnaire );
@@ -47,5 +51,4 @@ public class AdminController {
         cancelledUsers.forEach(n -> cancelledUsersString.add(n.getUser().getUsername()));
         return ResponseEntity.ok(new UserListDTO(submittedUsersString, cancelledUsersString));
     }
-
 }

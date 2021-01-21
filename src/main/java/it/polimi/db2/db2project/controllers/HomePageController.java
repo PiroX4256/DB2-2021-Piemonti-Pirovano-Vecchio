@@ -6,6 +6,7 @@ import it.polimi.db2.db2project.services.QuestionnaireService;
 import it.polimi.db2.db2project.services.StatisticalQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class HomePageController {
     StatisticalQuestionService statisticalQuestionService;
 
     @GetMapping("/getHomePage")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> getQuestionnaireByDate() {
         Questionnaire questionnaire = questionnaireService.findByDate(new Date());
         if(questionnaire == null) {
@@ -41,6 +43,7 @@ public class HomePageController {
     }
 
     @GetMapping("/getReviews")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> getReviews() {
         List<MarketingQuestion> questionList = questionnaireService.findByDate(new Date()).getMarketingQuestions();
         List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
@@ -57,6 +60,7 @@ public class HomePageController {
     }
 
     @GetMapping("/getLeaderboard")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> getLeaderboard() {
         Questionnaire questionnaire = questionnaireService.findByDate(new Date());
         List<UserFilled> userList = questionnaireService.findUsersFilledQuestionnaire(questionnaire);

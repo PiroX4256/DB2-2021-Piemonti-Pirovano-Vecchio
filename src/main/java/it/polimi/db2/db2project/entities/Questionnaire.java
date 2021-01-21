@@ -25,6 +25,7 @@ public class Questionnaire {
     private Date date;
 
     @OneToMany(mappedBy = "questionnaire", orphanRemoval = true)
+
     private List<UserFilled> questionnaireCompiledBy = new ArrayList<>();
 
     @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL, orphanRemoval = true)
