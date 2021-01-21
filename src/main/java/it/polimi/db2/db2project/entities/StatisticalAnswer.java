@@ -16,7 +16,7 @@ public class StatisticalAnswer {
     @ManyToOne
     private StatisticalQuestion statisticalQuestion;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Questionnaire questionnaire;
 
