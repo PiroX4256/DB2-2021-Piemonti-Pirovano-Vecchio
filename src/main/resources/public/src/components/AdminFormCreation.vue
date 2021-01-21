@@ -107,8 +107,7 @@ export default {
           'Authorization': `Bearer ${this.getAdminBearer}`
         }
       }
-    ).then(res => {
-        console.log(`${res.status}:: ${res.data}`);
+    ).then(() => {
         this.$refs['modal-s'].show();
       })
       .catch(res => {

@@ -165,7 +165,7 @@ export default {
             }
           }).then(res => {
         if(res.status === 200) {
-          /*console.log(JSON.stringify(res.data));
+          /*
           this.successMsg = 'Submit successful!';
           this.submitted = true;
           this.$refs['modal-s'].show();*/
