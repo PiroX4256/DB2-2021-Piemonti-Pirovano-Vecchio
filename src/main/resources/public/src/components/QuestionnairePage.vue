@@ -165,16 +165,16 @@ export default {
               'Authorization': `Bearer ${this.getBearer}`
             }
           }).then(res => {
-        if(res.status === 200) {
-          /*
-          this.successMsg = 'Submit successful!';
-          this.submitted = true;
-          this.$refs['modal-s'].show();*/
-          window.location.href("/greetings");
-        } else {
-          this.errorMsg = 'Unexpected error! Retry later.';
-          this.$refs['modal-e'].show();
-        }
+            if(res.status === 200) {
+              /*
+              this.successMsg = 'Submit successful!';
+              this.submitted = true;
+              this.$refs['modal-s'].show();*/
+              window.location.href= "/greetings";
+            } else {
+              this.errorMsg = 'Unexpected error! Retry later.';
+              this.$refs['modal-e'].show();
+            }
       }).catch(err => {
         if(err.response.status === 422) {
           this.errorMsg = 'You have been banned for writing an offensive word.';
