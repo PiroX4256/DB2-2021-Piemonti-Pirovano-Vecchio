@@ -1,3 +1,7 @@
+# DataBases 2 Project 2020/2021
+Prof: Piero Fraternali
+Final Score: 4,5/5
+
 application.properties (src/main/resources)
 
 ```
